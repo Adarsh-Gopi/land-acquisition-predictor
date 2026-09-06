@@ -93,6 +93,7 @@ router.post('/predict', async (req, res) => {
             risk_distribution: pred.risk_distribution || { low: 0, medium: 0, high: 0 },
             top_risk_factors: pred.top_risk_factors || [],
             recommended_preventive_actions: pred.recommended_preventive_actions || [],
+            shap_explanations: pred.shap_explanations || [],
             processing_time_ms: pred.processing_time_ms || 0,
             warning: mlResult.warning || null
         };
@@ -195,4 +196,144 @@ router.get('/show', async (req, res) => {
     }
 });
 
+// ── DASHBOARD ──────────────────────────────────────────────────────────────
+router.get('/dashboard', async (req, res) => {
+    try {
+        let allCases = [];
+        try {
+            allCases = await Case.find().sort({ createdAt: -1 });
+        } catch (e) {
+            allCases = memoryCases;
+        }
+
+        const total  = allCases.length;
+        const high   = allCases.filter(c => c.risk_level === 'High').length;
+        const medium = allCases.filter(c => c.risk_level === 'Medium').length;
+        const low    = allCases.filter(c => c.risk_level === 'Low').length;
+        const avgProb = total > 0
+            ? Math.round((allCases.reduce((s, c) => s + (c.delay_probability || 0), 0) / total) * 100)
+            : 0;
+
+        // State-wise risk breakdown
+        const stateMap = {};
+        allCases.forEach(c => {
+            if (!stateMap[c.state]) stateMap[c.state] = { high: 0, medium: 0, low: 0 };
+            if (c.risk_level === 'High')   stateMap[c.state].high++;
+            else if (c.risk_level === 'Medium') stateMap[c.state].medium++;
+            else stateMap[c.state].low++;
+        });
+        const stateLabels = Object.keys(stateMap);
+        const stateChartData = {
+            labels: stateLabels,
+            high:   stateLabels.map(s => stateMap[s].high),
+            medium: stateLabels.map(s => stateMap[s].medium),
+            low:    stateLabels.map(s => stateMap[s].low),
+        };
+
+        // Trend: last 20 cases delay probability over time
+        const recent = [...allCases].reverse().slice(-20);
+        const trendChartData = {
+            labels: recent.map((c, i) => `#${i + 1}`),
+            values: recent.map(c => Math.round((c.delay_probability || 0) * 100)),
+            colors: recent.map(c => c.risk_level === 'High' ? '#dc3545' : c.risk_level === 'Medium' ? '#ffc107' : '#198754'),
+        };
+
+        // Sector distribution
+        const sectorMap = {};
+        allCases.forEach(c => { sectorMap[c.project_type] = (sectorMap[c.project_type] || 0) + 1; });
+        const sectorChartData = {
+            labels: Object.keys(sectorMap),
+            values: Object.values(sectorMap),
+        };
+
+        // Average milestone progress
+        const avg = (arr, key) => arr.length ? Math.round(arr.reduce((s, c) => s + (c[key] || 0), 0) / arr.length) : 0;
+        const milestoneData = {
+            notified:   avg(allCases, 'land_notified_percent'),
+            award:      avg(allCases, 'award_completed_percent'),
+            disbursed:  avg(allCases, 'compensation_disbursed_percent'),
+            possession: avg(allCases, 'possession_completed_percent'),
+        };
+
+        // Most common risk factor keywords
+        const factorKeywords = {
+            'Court Litigation':       0,
+            'Title Dispute':          0,
+            'Public Objections':      0,
+            'Funding Pending':        0,
+            'Possession Lag':         0,
+            'Multi-Village Jurisdiction': 0,
+        };
+        allCases.forEach(c => {
+            (c.top_risk_factors || []).forEach(f => {
+                if (f.includes('court') || f.includes('Court')) factorKeywords['Court Litigation']++;
+                if (f.includes('title') || f.includes('Title')) factorKeywords['Title Dispute']++;
+                if (f.includes('objection') || f.includes('Objection')) factorKeywords['Public Objections']++;
+                if (f.includes('fund') || f.includes('fund')) factorKeywords['Funding Pending']++;
+                if (f.includes('possession') || f.includes('Possession')) factorKeywords['Possession Lag']++;
+                if (f.includes('village') || f.includes('Village')) factorKeywords['Multi-Village Jurisdiction']++;
+            });
+        });
+        const sortedFactors = Object.entries(factorKeywords).sort((a, b) => b[1] - a[1]);
+        const factorChartData = {
+            labels: sortedFactors.map(f => f[0]),
+            values: sortedFactors.map(f => f[1]),
+        };
+
+        const highRiskCases = allCases.filter(c => c.risk_level === 'High').slice(0, 8);
+
+        res.render('listing/dashboard', {
+            title: 'Analytics Dashboard',
+            stats: { total, high, medium, low, avgProb },
+            stateChartData,
+            trendChartData,
+            sectorChartData,
+            milestoneData,
+            factorChartData,
+            highRiskCases,
+        });
+    } catch (err) {
+        console.error(err);
+        res.status(500).send('Dashboard error');
+    }
+});
+
+// ── GIS MAP ────────────────────────────────────────────────────────────────
+router.get('/map', async (req, res) => {
+    try {
+        let mapCases = [];
+        try {
+            mapCases = await Case.find({}, {
+                case_id: 1, project_name: 1, state: 1, district_type: 1,
+                project_type: 1, risk_level: 1, delay_probability: 1,
+                delay_probability_percent: 1, days_since_case_opened: 1,
+                top_risk_factors: 1, recommended_preventive_actions: 1, _id: 1
+            }).sort({ createdAt: -1 });
+        } catch (e) {
+            mapCases = memoryCases;
+        }
+        res.render('listing/map', { title: 'GIS Risk Map', mapCases });
+    } catch (err) {
+        console.error(err);
+        res.status(500).send('Map error');
+    }
+});
+
+// ── ALERTS ─────────────────────────────────────────────────────────────────
+router.get('/alerts', async (req, res) => {
+    try {
+        let alerts = [];
+        try {
+            alerts = await Case.find({ risk_level: 'High' }).sort({ delay_probability: -1 });
+        } catch (e) {
+            alerts = memoryCases.filter(c => c.risk_level === 'High');
+        }
+        res.render('listing/alerts', { title: `High-Risk Alerts (${alerts.length})`, alerts });
+    } catch (err) {
+        console.error(err);
+        res.status(500).send('Alerts error');
+    }
+});
+
 module.exports = router;
+

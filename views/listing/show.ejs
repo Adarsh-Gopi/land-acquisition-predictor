@@ -45,6 +45,7 @@ const riskLevel = item.risk_level || 'Medium';
 const riskDist = item.risk_distribution || { low: 0, medium: 0, high: 0 };
 const factors = Array.isArray(item.top_risk_factors) ? item.top_risk_factors : [];
 const actions = Array.isArray(item.recommended_preventive_actions) ? item.recommended_preventive_actions : [];
+const shapData = Array.isArray(item.shap_explanations) ? item.shap_explanations : [];
 const probPercent = item.delay_probability_percent || `${Math.round((item.delay_probability || 0) * 100)}%`;
 const probVal = typeof item.delay_probability === 'number' ? item.delay_probability : 0.5;
 const progressWidth = Math.min(Math.max(Math.round(probVal * 100), 0), 100);
@@ -154,6 +155,23 @@ const progressWidth = Math.min(Math.max(Math.round(probVal * 100), 0), 100);
                 <% } %>
             </div>
 
+            <!-- SHAP Explainability Chart -->
+            <% if (shapData.length > 0) { %>
+            <div class="card border-0 shadow-sm rounded-4 p-4 mb-4">
+                <h5 class="fw-bold text-navy mb-1">
+                    <i class="bi bi-diagram-3-fill text-primary me-2"></i> AI Explainability (SHAP)
+                </h5>
+                <p class="text-muted small mb-3">How much each feature contributes to the predicted delay probability — as learned by the XGBoost model.</p>
+                <div style="height: 260px;">
+                    <canvas id="shapChart"></canvas>
+                </div>
+                <div class="d-flex gap-3 mt-2 small text-muted">
+                    <span><span style="display:inline-block;width:12px;height:12px;background:#dc3545;border-radius:2px;margin-right:4px;"></span>Increases delay risk</span>
+                    <span><span style="display:inline-block;width:12px;height:12px;background:#198754;border-radius:2px;margin-right:4px;"></span>Reduces delay risk</span>
+                </div>
+            </div>
+            <% } %>
+
             <!-- Recommended Preventive Actions -->
             <div class="card border-0 shadow-sm rounded-4 p-4 border-start border-4 border-teal">
                 <h5 class="fw-bold text-navy mb-3"><i class="bi bi-clipboard-check-fill text-teal me-2"></i> Recommended Officer Preventive Actions</h5>
@@ -232,3 +250,55 @@ const progressWidth = Math.min(Math.max(Math.round(probVal * 100), 0), 100);
     </div>
 
 </div>
+
+<!-- Chart.js for SHAP -->
+<% if (shapData.length > 0) { %>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<script>
+(function() {
+    const shap = <%- JSON.stringify(shapData) %>;
+    const labels  = shap.map(s => s.feature);
+    const values  = shap.map(s => s.shap_value);
+    const colors  = shap.map(s => s.shap_value > 0 ? '#dc3545' : '#198754');
+    const borders = shap.map(s => s.shap_value > 0 ? '#b02a37' : '#146c43');
+
+    new Chart(document.getElementById('shapChart'), {
+        type: 'bar',
+        data: {
+            labels: labels,
+            datasets: [{
+                label: 'SHAP Value (contribution to delay probability)',
+                data: values,
+                backgroundColor: colors,
+                borderColor: borders,
+                borderWidth: 1,
+                borderRadius: 4,
+            }]
+        },
+        options: {
+            indexAxis: 'y',
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: { display: false },
+                tooltip: {
+                    callbacks: {
+                        label: ctx => {
+                            const s = shap[ctx.dataIndex];
+                            return ` ${s.direction} by ${s.impact_pct}% (SHAP: ${s.shap_value > 0 ? '+' : ''}${s.shap_value})`;
+                        }
+                    }
+                }
+            },
+            scales: {
+                x: {
+                    grid: { color: 'rgba(0,0,0,0.05)' },
+                    ticks: { callback: v => (v > 0 ? '+' : '') + (v * 100).toFixed(1) + '%' }
+                },
+                y: { grid: { display: false } }
+            }
+        }
+    });
+})();
+</script>
+<% } %>

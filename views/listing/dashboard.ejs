@@ -1,0 +1,275 @@
+<% layout('layouts/boilerplate') %>
+
+<div class="container-fluid py-4 px-4">
+
+    <!-- Page Header -->
+    <div class="d-flex align-items-center justify-content-between mb-4">
+        <div>
+            <h2 class="fw-bold text-navy mb-1"><i class="bi bi-bar-chart-line-fill text-teal me-2"></i> Analytics Dashboard</h2>
+            <p class="text-muted mb-0">Real-time predictive insights across all assessed land acquisition projects</p>
+        </div>
+        <div class="d-flex gap-2">
+            <a href="/map" class="btn btn-outline-success btn-sm fw-semibold">
+                <i class="bi bi-map me-1"></i> GIS Map View
+            </a>
+            <a href="/predict" class="btn btn-teal btn-sm fw-bold">
+                <i class="bi bi-plus-circle me-1"></i> New Assessment
+            </a>
+        </div>
+    </div>
+
+    <!-- KPI Cards Row -->
+    <div class="row g-3 mb-4">
+        <div class="col-6 col-md-3">
+            <div class="card border-0 shadow-sm rounded-4 p-3 text-center h-100">
+                <div class="text-muted small fw-semibold text-uppercase mb-1">Total Cases</div>
+                <div class="display-6 fw-extrabold text-navy"><%= stats.total %></div>
+                <div class="small text-muted mt-1"><i class="bi bi-folder2-open me-1"></i>All Projects</div>
+            </div>
+        </div>
+        <div class="col-6 col-md-3">
+            <div class="card border-0 shadow-sm rounded-4 p-3 text-center h-100 border-start border-4 border-danger">
+                <div class="text-muted small fw-semibold text-uppercase mb-1">High Risk</div>
+                <div class="display-6 fw-extrabold text-danger"><%= stats.high %></div>
+                <div class="small text-danger mt-1"><i class="bi bi-exclamation-triangle-fill me-1"></i>Needs Action</div>
+            </div>
+        </div>
+        <div class="col-6 col-md-3">
+            <div class="card border-0 shadow-sm rounded-4 p-3 text-center h-100 border-start border-4 border-warning">
+                <div class="text-muted small fw-semibold text-uppercase mb-1">Medium Risk</div>
+                <div class="display-6 fw-extrabold text-warning"><%= stats.medium %></div>
+                <div class="small text-warning mt-1"><i class="bi bi-eye-fill me-1"></i>Monitor</div>
+            </div>
+        </div>
+        <div class="col-6 col-md-3">
+            <div class="card border-0 shadow-sm rounded-4 p-3 text-center h-100 border-start border-4 border-success">
+                <div class="text-muted small fw-semibold text-uppercase mb-1">Avg Delay Prob.</div>
+                <div class="display-6 fw-extrabold text-success"><%= stats.avgProb %>%</div>
+                <div class="small text-muted mt-1"><i class="bi bi-graph-up me-1"></i>Across All Cases</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Charts Row 1 -->
+    <div class="row g-4 mb-4">
+
+        <!-- Risk Distribution Doughnut -->
+        <div class="col-md-4">
+            <div class="card border-0 shadow-sm rounded-4 p-4 h-100">
+                <h6 class="fw-bold text-navy mb-3"><i class="bi bi-pie-chart-fill text-primary me-2"></i>Risk Tier Distribution</h6>
+                <div class="d-flex justify-content-center align-items-center" style="height:220px;">
+                    <canvas id="riskDoughnut"></canvas>
+                </div>
+                <div class="d-flex justify-content-center gap-3 mt-3 small">
+                    <span><span class="badge bg-danger me-1">&nbsp;</span>High: <%= stats.high %></span>
+                    <span><span class="badge bg-warning me-1">&nbsp;</span>Medium: <%= stats.medium %></span>
+                    <span><span class="badge bg-success me-1">&nbsp;</span>Low: <%= stats.low %></span>
+                </div>
+            </div>
+        </div>
+
+        <!-- State-wise Bar Chart -->
+        <div class="col-md-8">
+            <div class="card border-0 shadow-sm rounded-4 p-4 h-100">
+                <h6 class="fw-bold text-navy mb-3"><i class="bi bi-geo-alt-fill text-success me-2"></i>High-Risk Cases by State</h6>
+                <div style="height:240px;">
+                    <canvas id="stateBar"></canvas>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Charts Row 2 -->
+    <div class="row g-4 mb-4">
+
+        <!-- Delay Probability Trend Over Time -->
+        <div class="col-md-8">
+            <div class="card border-0 shadow-sm rounded-4 p-4 h-100">
+                <h6 class="fw-bold text-navy mb-3"><i class="bi bi-graph-up-arrow text-info me-2"></i>Delay Probability Trend (Recent Assessments)</h6>
+                <div style="height:240px;">
+                    <canvas id="trendLine"></canvas>
+                </div>
+            </div>
+        </div>
+
+        <!-- Project Type Breakdown -->
+        <div class="col-md-4">
+            <div class="card border-0 shadow-sm rounded-4 p-4 h-100">
+                <h6 class="fw-bold text-navy mb-3"><i class="bi bi-building me-2 text-warning"></i>Cases by Project Sector</h6>
+                <div style="height:240px;">
+                    <canvas id="projectTypeBar"></canvas>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Charts Row 3 -->
+    <div class="row g-4 mb-4">
+
+        <!-- Milestone Progress Averages -->
+        <div class="col-md-6">
+            <div class="card border-0 shadow-sm rounded-4 p-4 h-100">
+                <h6 class="fw-bold text-navy mb-3"><i class="bi bi-bar-chart-steps text-teal me-2"></i>Average Milestone Progress Across All Cases</h6>
+                <div style="height:220px;">
+                    <canvas id="milestoneBar"></canvas>
+                </div>
+            </div>
+        </div>
+
+        <!-- Risk Factor Frequency -->
+        <div class="col-md-6">
+            <div class="card border-0 shadow-sm rounded-4 p-4 h-100">
+                <h6 class="fw-bold text-navy mb-3"><i class="bi bi-exclamation-octagon-fill text-danger me-2"></i>Most Common Delay Drivers</h6>
+                <div style="height:220px;">
+                    <canvas id="riskFactorBar"></canvas>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Recent High Risk Cases Table -->
+    <div class="card border-0 shadow-sm rounded-4 p-4 mb-4">
+        <div class="d-flex align-items-center justify-content-between mb-3">
+            <h6 class="fw-bold text-navy mb-0"><i class="bi bi-exclamation-triangle-fill text-danger me-2"></i>Recent High-Risk Projects</h6>
+            <a href="/history" class="btn btn-outline-secondary btn-sm">View All <i class="bi bi-arrow-right ms-1"></i></a>
+        </div>
+        <% if (highRiskCases && highRiskCases.length > 0) { %>
+        <div class="table-responsive">
+            <table class="table table-hover align-middle mb-0">
+                <thead class="table-light">
+                    <tr>
+                        <th>Case ID</th>
+                        <th>Project Name</th>
+                        <th>State</th>
+                        <th>Sector</th>
+                        <th>Delay Prob.</th>
+                        <th>Top Driver</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% highRiskCases.forEach(c => { %>
+                    <tr>
+                        <td><span class="badge bg-light text-dark border"><%= c.case_id %></span></td>
+                        <td class="fw-semibold"><%= c.project_name || 'N/A' %></td>
+                        <td><i class="bi bi-geo-alt text-muted me-1"></i><%= c.state %></td>
+                        <td><%= c.project_type %></td>
+                        <td>
+                            <span class="badge bg-danger-subtle text-danger fw-bold px-2">
+                                <%= c.delay_probability_percent %>
+                            </span>
+                        </td>
+                        <td class="text-muted small"><%= c.top_risk_factors && c.top_risk_factors[0] ? c.top_risk_factors[0].substring(0, 40) + '...' : 'N/A' %></td>
+                        <td>
+                            <a href="/history/<%= c._id %>" class="btn btn-outline-danger btn-sm">View</a>
+                        </td>
+                    </tr>
+                    <% }) %>
+                </tbody>
+            </table>
+        </div>
+        <% } else { %>
+        <div class="text-center text-muted py-4">
+            <i class="bi bi-check-circle-fill text-success fs-2 mb-2 d-block"></i>
+            No High-Risk cases currently. Submit assessments to populate this dashboard.
+        </div>
+        <% } %>
+    </div>
+
+</div>
+
+<!-- Chart.js CDN -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+
+<script>
+// Data from server
+const riskData   = { high: <%- stats.high %>, medium: <%- stats.medium %>, low: <%- stats.low %> };
+const stateData  = <%- JSON.stringify(stateChartData) %>;
+const trendData  = <%- JSON.stringify(trendChartData) %>;
+const sectorData = <%- JSON.stringify(sectorChartData) %>;
+const milestones = <%- JSON.stringify(milestoneData) %>;
+const factorData = <%- JSON.stringify(factorChartData) %>;
+
+const chartDefaults = { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } } };
+
+// 1. Risk Doughnut
+new Chart(document.getElementById('riskDoughnut'), {
+    type: 'doughnut',
+    data: {
+        labels: ['High Risk', 'Medium Risk', 'Low Risk'],
+        datasets: [{ data: [riskData.high, riskData.medium, riskData.low], backgroundColor: ['#dc3545','#ffc107','#198754'], borderWidth: 2, hoverOffset: 8 }]
+    },
+    options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false }, tooltip: { callbacks: { label: ctx => ` ${ctx.label}: ${ctx.raw} cases` } } }, cutout: '65%' }
+});
+
+// 2. State Bar
+new Chart(document.getElementById('stateBar'), {
+    type: 'bar',
+    data: {
+        labels: stateData.labels,
+        datasets: [
+            { label: 'High Risk', data: stateData.high, backgroundColor: '#dc3545', borderRadius: 5 },
+            { label: 'Medium Risk', data: stateData.medium, backgroundColor: '#ffc107', borderRadius: 5 },
+            { label: 'Low Risk', data: stateData.low, backgroundColor: '#198754', borderRadius: 5 }
+        ]
+    },
+    options: { ...chartDefaults, plugins: { legend: { display: true, position: 'top' } }, scales: { x: { stacked: true, grid: { display: false } }, y: { stacked: true, ticks: { stepSize: 1 } } } }
+});
+
+// 3. Trend Line
+new Chart(document.getElementById('trendLine'), {
+    type: 'line',
+    data: {
+        labels: trendData.labels,
+        datasets: [{
+            label: 'Delay Probability (%)',
+            data: trendData.values,
+            borderColor: '#0d6efd',
+            backgroundColor: 'rgba(13,110,253,0.1)',
+            tension: 0.4,
+            fill: true,
+            pointBackgroundColor: trendData.colors,
+            pointRadius: 5
+        }]
+    },
+    options: { ...chartDefaults, plugins: { legend: { display: false } }, scales: { y: { min: 0, max: 100, ticks: { callback: v => v + '%' } }, x: { grid: { display: false } } } }
+});
+
+// 4. Project Type Bar
+new Chart(document.getElementById('projectTypeBar'), {
+    type: 'bar',
+    data: {
+        labels: sectorData.labels,
+        datasets: [{ label: 'Cases', data: sectorData.values, backgroundColor: ['#0d6efd','#6f42c1','#20c997','#fd7e14','#e83e8c'], borderRadius: 5 }]
+    },
+    options: { ...chartDefaults, indexAxis: 'y', scales: { x: { ticks: { stepSize: 1 } }, y: { grid: { display: false } } } }
+});
+
+// 5. Milestone Bar
+new Chart(document.getElementById('milestoneBar'), {
+    type: 'bar',
+    data: {
+        labels: ['Notified', 'Award Declared', 'Compensation\nDisbursed', 'Possession\nCompleted'],
+        datasets: [{
+            label: 'Average %',
+            data: [milestones.notified, milestones.award, milestones.disbursed, milestones.possession],
+            backgroundColor: ['#0dcaf0','#0d6efd','#6f42c1','#198754'],
+            borderRadius: 5
+        }]
+    },
+    options: { ...chartDefaults, scales: { y: { min: 0, max: 100, ticks: { callback: v => v + '%' } }, x: { grid: { display: false } } } }
+});
+
+// 6. Risk Factor Bar
+new Chart(document.getElementById('riskFactorBar'), {
+    type: 'bar',
+    data: {
+        labels: factorData.labels,
+        datasets: [{ label: 'Frequency', data: factorData.values, backgroundColor: '#dc3545', borderRadius: 5 }]
+    },
+    options: { ...chartDefaults, indexAxis: 'y', scales: { x: { ticks: { stepSize: 1 } }, y: { grid: { display: false } } } }
+});
+</script>

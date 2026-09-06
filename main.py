@@ -18,6 +18,7 @@ from typing import Any, Dict, List, Optional, Union
 import joblib
 import numpy as np
 import pandas as pd
+import shap
 from fastapi import FastAPI, HTTPException, status
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel, Field
@@ -135,6 +136,7 @@ class PredictionResponse(BaseModel):
     risk_distribution: Dict[str, float]
     top_risk_factors: List[str]
     recommended_preventive_actions: List[str]
+    shap_explanations: List[Dict[str, Any]]
     processing_time_ms: float
 
 
@@ -180,6 +182,57 @@ def evaluate_single_case(case: LandAcquisitionCase) -> PredictionResponse:
 
     # 2. Risk Distribution (XGBoost Classifier)
     risk_probs = risk_clf.predict_proba(X_trans)[0]
+
+    # 3. SHAP Explainability — per-feature contribution to delay probability
+    shap_explanations: List[Dict[str, Any]] = []
+    try:
+        explainer = shap.TreeExplainer(prob_reg)
+        shap_values = explainer.shap_values(X_trans)
+        feature_names: List[str] = []
+        if hasattr(preprocessor, "get_feature_names_out"):
+            feature_names = list(preprocessor.get_feature_names_out())
+        else:
+            feature_names = [f"feature_{i}" for i in range(X_trans.shape[1])]
+
+        readable = {
+            "has_court_case": "Court Litigation",
+            "has_title_dispute": "Title Dispute",
+            "has_objection": "Public Objections",
+            "compensation_funding_available": "Escrow Funding",
+            "dispute_score": "Dispute Score",
+            "severe_legal_risk": "Severe Legal Risk",
+            "possession_lag": "Possession Lag",
+            "disbursal_ratio": "Disbursal Ratio",
+            "milestone_avg": "Milestone Progress",
+            "days_since_case_opened": "Days Active",
+            "land_area_hectares": "Land Area (Ha)",
+            "affected_owner_count": "Affected Owners",
+            "is_multi_village": "Multi-Village",
+            "compensation_estimate_inr_lakh": "Compensation Estimate",
+            "unfunded_amount": "Unfunded Amount",
+            "area_per_owner": "Area per Owner",
+            "cost_per_hectare": "Cost per Hectare",
+            "award_completed_percent": "Award Declared %",
+            "possession_completed_percent": "Possession %",
+            "compensation_disbursed_percent": "Disbursed %",
+            "land_notified_percent": "Land Notified %",
+        }
+
+        sv = shap_values[0] if hasattr(shap_values, '__len__') and shap_values.ndim > 1 else shap_values
+        pairs = [(feature_names[i], float(sv[i])) for i in range(len(sv))]
+        pairs_sorted = sorted(pairs, key=lambda x: abs(x[1]), reverse=True)[:8]
+
+        for fname, fval in pairs_sorted:
+            clean = fname.split("__")[-1]
+            label = readable.get(clean, clean.replace("_", " ").title())
+            shap_explanations.append({
+                "feature": label,
+                "shap_value": round(fval, 4),
+                "impact_pct": round(abs(fval) * 100, 1),
+                "direction": "increases delay" if fval > 0 else "reduces delay",
+            })
+    except Exception:
+        shap_explanations = []
 
     # Harmonized Risk Level
     if delay_prob < 0.35:
@@ -231,6 +284,7 @@ def evaluate_single_case(case: LandAcquisitionCase) -> PredictionResponse:
         },
         top_risk_factors=risk_factors,
         recommended_preventive_actions=preventive_actions,
+        shap_explanations=shap_explanations,
         processing_time_ms=elapsed_ms,
     )
 

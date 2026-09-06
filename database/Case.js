@@ -35,6 +35,7 @@ const CaseSchema = new mongoose.Schema({
     },
     top_risk_factors: [{ type: String }],
     recommended_preventive_actions: [{ type: String }],
+    shap_explanations: [{ type: mongoose.Schema.Types.Mixed }],
     processing_time_ms: { type: Number, default: 0 }
 }, { timestamps: true });
 
