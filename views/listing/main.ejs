@@ -1,0 +1,195 @@
+<% layout('layouts/boilerplate') %>
+
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-10">
+
+            <div class="d-flex align-items-center justify-content-between mb-4">
+                <div>
+                    <h2 class="fw-bold text-navy mb-1"><i class="bi bi-file-earmark-plus text-teal me-2"></i> Land Acquisition Risk Assessment</h2>
+                    <p class="text-muted mb-0">Fill in project parameters to compute delay risk probability and generate mitigation strategies.</p>
+                </div>
+                <a href="/" class="btn btn-outline-secondary btn-sm"><i class="bi bi-arrow-left me-1"></i> Back to Home</a>
+            </div>
+
+            <form action="/predict" method="POST" class="card shadow-sm border-0 rounded-4 p-4 p-md-5">
+                
+                <!-- Section 1: Project Details -->
+                <div class="mb-4">
+                    <h5 class="fw-bold text-navy pb-2 border-bottom"><i class="bi bi-building me-2 text-primary"></i> 1. Project Identification</h5>
+                    <div class="row g-3 mt-1">
+                        <div class="col-md-6">
+                            <label class="form-label fw-semibold">Case ID / Notification Ref *</label>
+                            <input type="text" name="case_id" class="form-control" placeholder="e.g. LA-2026-RW-0042" value="LA-2026-RW-0042" required>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label fw-semibold">Project Name *</label>
+                            <input type="text" name="project_name" class="form-control" placeholder="e.g. Eastern Dedicated Freight Corridor" value="Eastern Dedicated Freight Corridor" required>
+                        </div>
+                        <div class="col-md-4">
+                            <label class="form-label fw-semibold">State *</label>
+                            <select name="state" class="form-select" required>
+                                <option value="Uttar Pradesh" selected>Uttar Pradesh</option>
+                                <option value="Punjab">Punjab</option>
+                                <option value="Maharashtra">Maharashtra</option>
+                                <option value="Rajasthan">Rajasthan</option>
+                                <option value="Madhya Pradesh">Madhya Pradesh</option>
+                                <option value="West Bengal">West Bengal</option>
+                                <option value="Chhattisgarh">Chhattisgarh</option>
+                                <option value="Odisha">Odisha</option>
+                                <option value="Haryana">Haryana</option>
+                                <option value="Karnataka">Karnataka</option>
+                            </select>
+                        </div>
+                        <div class="col-md-4">
+                            <label class="form-label fw-semibold">District Type *</label>
+                            <select name="district_type" class="form-select" required>
+                                <option value="Rural" selected>Rural</option>
+                                <option value="Semi-urban">Semi-urban</option>
+                                <option value="Urban">Urban</option>
+                            </select>
+                        </div>
+                        <div class="col-md-4">
+                            <label class="form-label fw-semibold">Project Sector *</label>
+                            <select name="project_type" class="form-select" required>
+                                <option value="Railway" selected>Railway</option>
+                                <option value="National Highway">National Highway</option>
+                                <option value="State Highway">State Highway</option>
+                                <option value="Urban Infrastructure">Urban Infrastructure</option>
+                                <option value="Industrial Corridor">Industrial Corridor</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Section 2: Land & Spatial Attributes -->
+                <div class="mb-4">
+                    <h5 class="fw-bold text-navy pb-2 border-bottom"><i class="bi bi-geo-alt me-2 text-success"></i> 2. Land & Ownership Parameters</h5>
+                    <div class="row g-3 mt-1">
+                        <div class="col-md-3">
+                            <label class="form-label fw-semibold">Land Area (Acres)</label>
+                            <input type="number" step="0.01" name="land_area_acres" id="areaAcres" class="form-control" placeholder="e.g. 8.2" value="8.2">
+                            <div class="form-text">As per field revenue survey</div>
+                        </div>
+                        <div class="col-md-3">
+                            <label class="form-label fw-semibold">Land Area (Hectares)</label>
+                            <input type="number" step="0.01" name="land_area_hectares" id="areaHectares" class="form-control" placeholder="e.g. 3.32" value="3.32">
+                            <div class="form-text">Auto-synced ($1\text{ ac} \approx 0.40\text{ ha}$)</div>
+                        </div>
+                        <div class="col-md-3">
+                            <label class="form-label fw-semibold">Land Category *</label>
+                            <select name="land_type" class="form-select" required>
+                                <option value="Agricultural" selected>Agricultural</option>
+                                <option value="Residential">Residential</option>
+                                <option value="Commercial">Commercial</option>
+                                <option value="Forest">Forest / Wetland</option>
+                            </select>
+                        </div>
+                        <div class="col-md-3">
+                            <label class="form-label fw-semibold">Affected Landowners Count *</label>
+                            <input type="number" name="affected_owner_count" class="form-control" value="12" min="1" required>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label fw-semibold">Notification Stage *</label>
+                            <select name="notification_stage" class="form-select" required>
+                                <option value="Pre-notification">Pre-notification (Initial Survey)</option>
+                                <option value="3A issued" selected>Section 3A / 4(1) Issued (Intention to Acquire)</option>
+                                <option value="3D issued">Section 3D / 6 Declaration (Acquisition Finalized)</option>
+                                <option value="3G award">Section 3G / 11 Award Declared (Compensation Fixed)</option>
+                            </select>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label fw-semibold">Multi-Village Jurisdiction?</label>
+                            <select name="is_multi_village" class="form-select">
+                                <option value="1" selected>Yes (Spans multiple revenue villages)</option>
+                                <option value="0">No (Single village parcel)</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Section 3: Legal & Dispute Risk Factors -->
+                <div class="mb-4">
+                    <h5 class="fw-bold text-navy pb-2 border-bottom"><i class="bi bi-exclamation-triangle me-2 text-danger"></i> 3. Legal, Dispute & Objection Factors</h5>
+                    <div class="row g-3 mt-1">
+                        <div class="col-md-4">
+                            <label class="form-label fw-semibold">Ownership Title Dispute?</label>
+                            <select name="has_title_dispute" class="form-select">
+                                <option value="1" selected>Yes (Conflicting title claims)</option>
+                                <option value="0">No (Clear title registry)</option>
+                            </select>
+                        </div>
+                        <div class="col-md-4">
+                            <label class="form-label fw-semibold">Court Litigation Pending?</label>
+                            <select name="has_court_case" class="form-select">
+                                <option value="1" selected>Yes (Stay order / High Court writ)</option>
+                                <option value="0">No (No active court cases)</option>
+                            </select>
+                        </div>
+                        <div class="col-md-4">
+                            <label class="form-label fw-semibold">Public Objections Filed?</label>
+                            <select name="has_objection" class="form-select">
+                                <option value="1" selected>Yes (Section 3C / 15 objections)</option>
+                                <option value="0">No (Nil objections)</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Section 4: Compensation & Financials -->
+                <div class="mb-4">
+                    <h5 class="fw-bold text-navy pb-2 border-bottom"><i class="bi bi-cash-stack me-2 text-success"></i> 4. Financial & Compensation Status</h5>
+                    <div class="row g-3 mt-1">
+                        <div class="col-md-6">
+                            <label class="form-label fw-semibold">Compensation Estimate (INR Lakhs) *</label>
+                            <input type="number" step="0.1" name="compensation_estimate_inr_lakh" class="form-control" value="350.0" required>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label fw-semibold">Compensation Funding Available in Escrow?</label>
+                            <select name="compensation_funding_available" class="form-select">
+                                <option value="0" selected>Pending (Budget / Treasury deposit awaited)</option>
+                                <option value="1">Available (Full escrow deposit confirmed)</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Section 5: Current Milestone Progress -->
+                <div class="mb-4">
+                    <h5 class="fw-bold text-navy pb-2 border-bottom"><i class="bi bi-bar-chart-steps me-2 text-info"></i> 5. Statutory Milestone Progress (%)</h5>
+                    <div class="row g-3 mt-1">
+                        <div class="col-md-4">
+                            <label class="form-label fw-semibold">Days Elapsed Since Notification *</label>
+                            <input type="number" name="days_since_case_opened" class="form-control" value="240" min="0" required>
+                        </div>
+                        <div class="col-md-4">
+                            <label class="form-label fw-semibold">Land Notified (% Area) *</label>
+                            <input type="number" step="0.1" name="land_notified_percent" class="form-control" value="60.0" min="0" max="100" required>
+                        </div>
+                        <div class="col-md-4">
+                            <label class="form-label fw-semibold">Award Declared (% Area) *</label>
+                            <input type="number" step="0.1" name="award_completed_percent" class="form-control" value="30.0" min="0" max="100" required>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label fw-semibold">Compensation Disbursed (% Amount) *</label>
+                            <input type="number" step="0.1" name="compensation_disbursed_percent" class="form-control" value="15.0" min="0" max="100" required>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label fw-semibold">Physical Possession (% Land) *</label>
+                            <input type="number" step="0.1" name="possession_completed_percent" class="form-control" value="0.0" min="0" max="100" required>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Action Button -->
+                <div class="text-center pt-3 border-top">
+                    <button type="submit" class="btn btn-teal btn-lg px-5 py-3 fw-bold rounded-pill shadow">
+                        <i class="bi bi-lightning-charge-fill me-2"></i> Compute Delay Risk & Actions
+                    </button>
+                </div>
+
+            </form>
+
+        </div>
+    </div>
+</div>

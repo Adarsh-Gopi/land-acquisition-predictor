@@ -1,0 +1,234 @@
+<% layout('layouts/boilerplate') %>
+
+<%
+// Safe fallback initialization to prevent any ReferenceError or TypeError
+const item = (typeof caseItem !== 'undefined' && caseItem) ? caseItem : {
+    case_id: 'DEMO-LA-2026',
+    project_name: 'High-Speed Infrastructure Corridor',
+    state: 'Uttar Pradesh',
+    district_type: 'Rural',
+    project_type: 'Railway',
+    land_type: 'Agricultural',
+    notification_stage: '3A issued',
+    land_area_acres: 8.2,
+    land_area_hectares: 3.32,
+    affected_owner_count: 12,
+    compensation_estimate_inr_lakh: 350.0,
+    compensation_funding_available: 0,
+    is_multi_village: 1,
+    days_since_case_opened: 240,
+    award_completed_percent: 30.0,
+    compensation_disbursed_percent: 15.0,
+    possession_completed_percent: 0.0,
+    delay_probability: 0.911,
+    delay_probability_percent: '91.1%',
+    risk_level: 'High',
+    is_delayed_predicted: 1,
+    risk_distribution: { low: 0.002, medium: 0.011, high: 0.988 },
+    top_risk_factors: [
+        'Active court litigation pending',
+        'Ownership title dispute among claimants',
+        'Section 3C/Section 15 public objections filed',
+        'Compensation funds not yet deposited in escrow'
+    ],
+    recommended_preventive_actions: [
+        'Prioritize government legal counsel hearings and consider Section 64 reference fast-tracking.',
+        'Deposit disputed share into competent authority court escrow while proceeding with uncontested parcels.',
+        'Convene direct CALA hearing to address objections on valuation and alignment.',
+        'Expedite budgetary sanction and treasury transfer to avoid statutory compensation interest penalty.'
+    ],
+    processing_time_ms: 57.8,
+    warning: null
+};
+
+const riskLevel = item.risk_level || 'Medium';
+const riskDist = item.risk_distribution || { low: 0, medium: 0, high: 0 };
+const factors = Array.isArray(item.top_risk_factors) ? item.top_risk_factors : [];
+const actions = Array.isArray(item.recommended_preventive_actions) ? item.recommended_preventive_actions : [];
+const probPercent = item.delay_probability_percent || `${Math.round((item.delay_probability || 0) * 100)}%`;
+const probVal = typeof item.delay_probability === 'number' ? item.delay_probability : 0.5;
+const progressWidth = Math.min(Math.max(Math.round(probVal * 100), 0), 100);
+%>
+
+<div class="container py-5">
+
+    <% if (item.warning) { %>
+        <div class="alert alert-warning alert-dismissible fade show shadow-sm rounded-4 mb-4" role="alert">
+            <i class="bi bi-exclamation-circle-fill me-2"></i> <strong>Notice:</strong> <%= item.warning %>
+            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        </div>
+    <% } %>
+
+    <!-- Result Header Card -->
+    <div class="card border-0 shadow-sm rounded-4 overflow-hidden mb-4">
+        <div class="p-4 p-md-5 text-white <%= riskLevel === 'High' ? 'bg-gradient-danger' : (riskLevel === 'Medium' ? 'bg-gradient-warning text-dark' : 'bg-gradient-success') %>">
+            <div class="row align-items-center">
+                <div class="col-md-8">
+                    <span class="badge bg-white text-dark px-3 py-2 rounded-pill fw-bold mb-2">
+                        <i class="bi bi-folder2 me-1"></i> Case ID: <%= item.case_id || 'N/A' %>
+                    </span>
+                    <h2 class="fw-extrabold mb-1"><%= item.project_name || 'Land Acquisition Project' %></h2>
+                    <p class="mb-0 opacity-75">
+                        <i class="bi bi-geo-alt me-1"></i> <%= item.state || 'N/A' %> (<%= item.district_type || 'N/A' %>) • Sector: <%= item.project_type || 'N/A' %> • Land: <%= item.land_area_acres || 0 %> Acres (<%= item.land_area_hectares || 0 %> Ha)
+                    </p>
+                </div>
+                <div class="col-md-4 text-md-end mt-4 mt-md-0">
+                    <div class="d-inline-block bg-white text-dark p-3 p-md-4 rounded-4 shadow text-center">
+                        <span class="small text-muted text-uppercase fw-bold d-block">Assigned Risk Tier</span>
+                        <h2 class="fw-extrabold mb-0 <%= riskLevel === 'High' ? 'text-danger' : (riskLevel === 'Medium' ? 'text-warning-dark' : 'text-success') %>">
+                            <%= riskLevel %> Risk
+                        </h2>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="p-4 bg-white border-top">
+            <div class="row g-4 align-items-center">
+                <div class="col-md-4 text-center border-end">
+                    <span class="text-muted small fw-semibold text-uppercase">Delay Probability</span>
+                    <h1 class="fw-extrabold mb-1 <%= riskLevel === 'High' ? 'text-danger' : (riskLevel === 'Medium' ? 'text-warning-dark' : 'text-success') %>">
+                        <%= probPercent %>
+                    </h1>
+                    <div class="progress mt-2" style="height: 10px;">
+                        <div id="delayProgressBar"
+                             class="progress-bar <%= riskLevel === 'High' ? 'bg-danger' : (riskLevel === 'Medium' ? 'bg-warning' : 'bg-success') %>" 
+                             role="progressbar" 
+                             aria-valuenow="<%= progressWidth %>" 
+                             aria-valuemin="0" 
+                             aria-valuemax="100">
+                        </div>
+                    </div>
+                    <script>
+                        (function() {
+                            var bar = document.getElementById('delayProgressBar');
+                            if (bar) bar.style.width = '<%= progressWidth %>%';
+                        })();
+                    </script>
+                </div>
+                <div class="col-md-4 text-center border-end">
+                    <span class="text-muted small fw-semibold text-uppercase">Probability Breakdown</span>
+                    <div class="d-flex justify-content-center gap-3 mt-2">
+                        <div>
+                            <span class="badge bg-success-subtle text-success">Low</span>
+                            <div class="fw-bold"><%= ((riskDist.low || 0) * 100).toFixed(1) %>%</div>
+                        </div>
+                        <div>
+                            <span class="badge bg-warning-subtle text-warning-dark">Medium</span>
+                            <div class="fw-bold"><%= ((riskDist.medium || 0) * 100).toFixed(1) %>%</div>
+                        </div>
+                        <div>
+                            <span class="badge bg-danger-subtle text-danger">High</span>
+                            <div class="fw-bold"><%= ((riskDist.high || 0) * 100).toFixed(1) %>%</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 text-center">
+                    <span class="text-muted small fw-semibold text-uppercase">Inference Latency</span>
+                    <h4 class="fw-bold text-navy mb-1"><%= item.processing_time_ms || 0 %> ms</h4>
+                    <span class="badge bg-light text-muted border">Sub-second Realtime</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Details and Action Columns -->
+    <div class="row g-4">
+        
+        <!-- Left: Bottleneck Drivers & Mitigations -->
+        <div class="col-lg-7">
+            <!-- Top Risk Factors -->
+            <div class="card border-0 shadow-sm rounded-4 p-4 mb-4">
+                <h5 class="fw-bold text-navy mb-3"><i class="bi bi-exclamation-octagon-fill text-danger me-2"></i> Identified Critical Bottlenecks</h5>
+                <% if (factors.length > 0) { %>
+                    <ul class="list-group list-group-flush">
+                        <% factors.forEach(function(factor) { %>
+                            <li class="list-group-item px-0 py-2 d-flex align-items-center">
+                                <i class="bi bi-x-circle-fill text-danger me-2 fs-5"></i>
+                                <span class="fw-semibold text-dark"><%= factor %></span>
+                            </li>
+                        <% }); %>
+                    </ul>
+                <% } else { %>
+                    <p class="text-muted mb-0">No severe bottleneck triggers identified.</p>
+                <% } %>
+            </div>
+
+            <!-- Recommended Preventive Actions -->
+            <div class="card border-0 shadow-sm rounded-4 p-4 border-start border-4 border-teal">
+                <h5 class="fw-bold text-navy mb-3"><i class="bi bi-clipboard-check-fill text-teal me-2"></i> Recommended Officer Preventive Actions</h5>
+                <% if (actions.length > 0) { %>
+                    <div class="d-flex flex-column gap-3">
+                        <% actions.forEach(function(action, idx) { %>
+                            <div class="d-flex align-items-start gap-3 p-3 rounded-3 bg-light">
+                                <span class="badge bg-teal text-navy rounded-circle px-2 py-1"><%= idx + 1 %></span>
+                                <span class="text-dark"><%= action %></span>
+                            </div>
+                        <% }); %>
+                    </div>
+                <% } else { %>
+                    <p class="text-muted mb-0">Standard milestone tracking recommended.</p>
+                <% } %>
+            </div>
+        </div>
+
+        <!-- Right: Case Parameter Snapshot -->
+        <div class="col-lg-5">
+            <div class="card border-0 shadow-sm rounded-4 p-4">
+                <h5 class="fw-bold text-navy mb-3"><i class="bi bi-info-circle-fill text-primary me-2"></i> Case Profile Summary</h5>
+                <table class="table table-sm table-borderless mb-0">
+                    <tbody>
+                        <tr>
+                            <td class="text-muted">Landowners Affected</td>
+                            <td class="fw-bold text-end"><%= item.affected_owner_count || 0 %> Owners</td>
+                        </tr>
+                        <tr>
+                            <td class="text-muted">Compensation Amount</td>
+                            <td class="fw-bold text-end">₹ <%= item.compensation_estimate_inr_lakh || 0 %> Lakhs</td>
+                        </tr>
+                        <tr>
+                            <td class="text-muted">Funding In Escrow</td>
+                            <td class="fw-bold text-end">
+                                <span class="badge <%= item.compensation_funding_available ? 'bg-success' : 'bg-danger' %>">
+                                    <%= item.compensation_funding_available ? 'Available' : 'Pending' %>
+                                </span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="text-muted">Multi-Village Jurisdiction</td>
+                            <td class="fw-bold text-end"><%= item.is_multi_village ? 'Yes' : 'No' %></td>
+                        </tr>
+                        <tr>
+                            <td class="text-muted">Current Notification</td>
+                            <td class="fw-bold text-end"><%= item.notification_stage || 'N/A' %></td>
+                        </tr>
+                        <tr>
+                            <td class="text-muted">Days Elapsed</td>
+                            <td class="fw-bold text-end"><%= item.days_since_case_opened || 0 %> Days</td>
+                        </tr>
+                        <tr>
+                            <td class="text-muted">Award Declared</td>
+                            <td class="fw-bold text-end"><%= item.award_completed_percent || 0 %>%</td>
+                        </tr>
+                        <tr>
+                            <td class="text-muted">Physical Possession</td>
+                            <td class="fw-bold text-end"><%= item.possession_completed_percent || 0 %>%</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Bottom Navigation -->
+            <div class="d-flex gap-2 mt-4">
+                <a href="/predict" class="btn btn-teal flex-grow-1 py-2 fw-bold">
+                    <i class="bi bi-plus-circle me-1"></i> New Assessment
+                </a>
+                <a href="/history" class="btn btn-outline-secondary flex-grow-1 py-2 fw-semibold">
+                    <i class="bi bi-card-list me-1"></i> View All History
+                </a>
+            </div>
+        </div>
+
+    </div>
+
+</div>

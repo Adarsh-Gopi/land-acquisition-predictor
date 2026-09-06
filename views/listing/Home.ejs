@@ -1,0 +1,109 @@
+<% layout('layouts/boilerplate') %>
+
+<!-- Hero Section -->
+<section class="hero-section text-white py-5 position-relative overflow-hidden">
+    <div class="container py-4 position-relative z-1">
+        <div class="row align-items-center">
+            <div class="col-lg-7">
+                <div class="badge bg-warning text-dark px-3 py-2 rounded-pill mb-3 fw-semibold">
+                    <i class="bi bi-shield-check me-1"></i> Early Risk Detection Engine • SIH 2026
+                </div>
+                <h1 class="display-4 fw-extrabold mb-3">
+                    Predictive Analytics for Early Detection of <span class="text-teal">Land Acquisition Delays</span>
+                </h1>
+                <p class="lead text-white-50 mb-4 pe-lg-4">
+                    Land acquisition in public infrastructure—spanning national highways, railways, and industrial corridors—routinely encounters legal gridlocks, title disputes, and compensation bottlenecks. Our AI-driven system analyzes administrative, spatial, and legal risk parameters to detect schedule slippages up to 18 months before awards stall.
+                </p>
+                <div class="d-flex flex-wrap gap-3">
+                    <a href="/predict" class="btn btn-teal btn-lg px-4 py-3 fw-bold shadow">
+                        <i class="bi bi-play-circle-fill me-2"></i> Start Prediction
+                    </a>
+                    <a href="/history" class="btn btn-outline-light btn-lg px-4 py-3 fw-semibold">
+                        <i class="bi bi-clock-history me-2"></i> View Past History
+                    </a>
+                </div>
+            </div>
+            <div class="col-lg-5 mt-5 mt-lg-0">
+                <div class="card bg-navy-card border-teal shadow-lg text-white p-4 rounded-4">
+                    <h5 class="fw-bold mb-3 text-teal"><i class="bi bi-speedometer2 me-2"></i> Real-time Monitoring Overview</h5>
+                    <div class="row g-3">
+                        <div class="col-6">
+                            <div class="stat-box p-3 rounded-3 bg-navy-light text-center border border-secondary">
+                                <h3 class="fw-extrabold mb-1 text-white"><%= stats.totalCases %></h3>
+                                <span class="small text-white-50">Projects Assessed</span>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="stat-box p-3 rounded-3 bg-navy-light text-center border border-danger">
+                                <h3 class="fw-extrabold mb-1 text-danger"><%= stats.highRisk %></h3>
+                                <span class="small text-white-50">High Risk Alerts</span>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="stat-box p-3 rounded-3 bg-navy-light text-center border border-warning">
+                                <h3 class="fw-extrabold mb-1 text-warning"><%= stats.mediumRisk %></h3>
+                                <span class="small text-white-50">Medium Risk Cases</span>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="stat-box p-3 rounded-3 bg-navy-light text-center border border-success">
+                                <h3 class="fw-extrabold mb-1 text-success"><%= stats.lowRisk %></h3>
+                                <span class="small text-white-50">Low Risk Projects</span>
+                            </div>
+                        </div>
+                    </div>
+                    <hr class="border-secondary my-3">
+                    <div class="small text-white-50 d-flex justify-content-between align-items-center">
+                        <span><i class="bi bi-check-circle-fill text-teal me-1"></i> XGBoost Dual-Engine</span>
+                        <span class="badge bg-teal text-navy fw-bold">93% Accuracy</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Core Features Section -->
+<section class="py-5 bg-white">
+    <div class="container py-3">
+        <div class="text-center mb-5">
+            <h2 class="fw-bold text-navy">How Early Delay Detection Works</h2>
+            <p class="text-muted">Proactive intervention designed for Competent Authority for Land Acquisition (CALA) officers</p>
+        </div>
+        <div class="row g-4">
+            <div class="col-md-4">
+                <div class="card h-100 p-4 border-0 shadow-sm rounded-4 feature-card">
+                    <div class="icon-circle bg-primary-subtle text-primary mb-3">
+                        <i class="bi bi-input-cursor-text fs-3"></i>
+                    </div>
+                    <h5 class="fw-bold text-navy">1. Comprehensive Input</h5>
+                    <p class="text-muted mb-0">Officers input project metadata including parcel area (Acres/Hectares), owner counts, title disputes, and Section 3C/15 public objections.</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card h-100 p-4 border-0 shadow-sm rounded-4 feature-card">
+                    <div class="icon-circle bg-success-subtle text-success mb-3">
+                        <i class="bi bi-cpu fs-3"></i>
+                    </div>
+                    <h5 class="fw-bold text-navy">2. Dual-Engine ML Prediction</h5>
+                    <p class="text-muted mb-0">Calibrated XGBoost models compute the continuous delay probability ($R^2 = 0.98$) and categorize risk into actionable tiers: Low, Medium, and High.</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card h-100 p-4 border-0 shadow-sm rounded-4 feature-card">
+                    <div class="icon-circle bg-danger-subtle text-danger mb-3">
+                        <i class="bi bi-shield-exclamation fs-3"></i>
+                    </div>
+                    <h5 class="fw-bold text-navy">3. Actionable Prevention</h5>
+                    <p class="text-muted mb-0">The system isolates top bottleneck drivers and auto-recommends regulatory actions such as Section 64 fast-tracking and escrow fund clearance.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="text-center mt-5">
+            <a href="/predict" class="btn btn-navy btn-lg px-5 py-3 fw-bold rounded-pill shadow">
+                <i class="bi bi-arrow-right-circle me-2"></i> Launch Assessment Form Now
+            </a>
+        </div>
+    </div>
+</section>

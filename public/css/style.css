@@ -1,0 +1,112 @@
+/* Land Acquisition Predictive Analytics — Theme */
+
+:root {
+    --navy-primary: #0F172A;
+    --navy-secondary: #1E293B;
+    --navy-light: #334155;
+    --teal-accent: #06B6D4;
+    --teal-dark: #0891B2;
+}
+
+body {
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    color: #1e293b;
+}
+
+.bg-navy {
+    background-color: var(--navy-primary) !important;
+}
+
+.bg-navy-card {
+    background-color: var(--navy-secondary) !important;
+}
+
+.bg-navy-light {
+    background-color: var(--navy-light) !important;
+}
+
+.text-navy {
+    color: var(--navy-primary) !important;
+}
+
+.text-teal {
+    color: var(--teal-accent) !important;
+}
+
+.text-warning-dark {
+    color: #D97706 !important;
+}
+
+.border-teal {
+    border-color: var(--teal-accent) !important;
+}
+
+.btn-teal {
+    background-color: var(--teal-accent);
+    color: #0F172A;
+    border: none;
+}
+
+.btn-teal:hover {
+    background-color: var(--teal-dark);
+    color: #ffffff;
+}
+
+.btn-navy {
+    background-color: var(--navy-primary);
+    color: #ffffff;
+    border: none;
+}
+
+.btn-navy:hover {
+    background-color: var(--navy-secondary);
+    color: #ffffff;
+}
+
+.hero-section {
+    background: linear-gradient(135deg, #0F172A 0%, #1E293B 50%, #083344 100%);
+}
+
+.bg-gradient-danger {
+    background: linear-gradient(135deg, #DC2626 0%, #991B1B 100%);
+}
+
+.bg-gradient-warning {
+    background: linear-gradient(135deg, #F59E0B 0%, #D97706 100%);
+}
+
+.bg-gradient-success {
+    background: linear-gradient(135deg, #059669 0%, #047857 100%);
+}
+
+.icon-circle {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.feature-card {
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.feature-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1) !important;
+}
+
+.history-card {
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.history-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 28px -4px rgba(0, 0, 0, 0.12) !important;
+}
+
+.risk-bar {
+    height: 6px;
+    width: 100%;
+}

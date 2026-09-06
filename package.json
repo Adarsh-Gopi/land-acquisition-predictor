@@ -1,0 +1,25 @@
+{
+  "name": "sih",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js",
+    "python": "python -m uvicorn main:app --host 0.0.0.0 --port 8000 --reload",
+    "dev": "concurrently -n \"FASTAPI,EXPRESS\" -c \"cyan.bold,green.bold\" \"npm run python\" \"node app.js\""
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "dependencies": {
+    "axios": "^1.20.0",
+    "ejs": "^6.0.1",
+    "ejs-mate": "^4.0.0",
+    "express": "^5.2.1",
+    "mongoose": "^9.9.5"
+  },
+  "devDependencies": {
+    "concurrently": "^10.0.5"
+  }
+}
