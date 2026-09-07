@@ -1,0 +1,47 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1800" height="430" viewBox="0 0 1800 430" role="img" aria-labelledby="title desc">
+  <title id="title">Compact land acquisition delay prediction workflow</title>
+  <desc id="desc">A compact horizontal flowchart for a PowerPoint or A4 document.</desc>
+  <rect width="1800" height="430" fill="#ffffff"/>
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L0,6 L9,3 z" fill="#40566d"/></marker>
+  </defs>
+  <style>
+    .box { fill:#fff; stroke:#174a7e; stroke-width:3; rx:14; }
+    .accent { fill:#eef6ff; stroke:#174a7e; stroke-width:3; rx:14; }
+    .result { fill:#eaf7ef; stroke:#257447; stroke-width:3; rx:14; }
+    .line { fill:none; stroke:#40566d; stroke-width:3; marker-end:url(#arrow); }
+    .title { font-family:Arial,sans-serif; font-size:31px; font-weight:700; fill:#123452; text-anchor:middle; }
+    .label { font-family:Arial,sans-serif; font-size:24px; font-weight:700; fill:#123452; text-anchor:middle; }
+    .sub { font-family:Arial,sans-serif; font-size:18px; fill:#2d4f6c; text-anchor:middle; }
+  </style>
+  <text class="title" x="900" y="48">Land Acquisition Delay Prediction Workflow</text>
+
+  <rect class="box" x="30" y="125" width="290" height="145"/>
+  <text class="label" x="175" y="180">1. Case Input</text>
+  <text class="sub" x="175" y="214">Land, legal, funding</text>
+  <text class="sub" x="175" y="240">and progress details</text>
+  <path class="line" d="M320 198 H390"/>
+
+  <rect class="box" x="400" y="125" width="290" height="145"/>
+  <text class="label" x="545" y="180">2. Web App</text>
+  <text class="sub" x="545" y="214">Express + EJS</text>
+  <text class="sub" x="545" y="240">processes request</text>
+  <path class="line" d="M690 198 H760"/>
+
+  <rect class="accent" x="770" y="125" width="290" height="145"/>
+  <text class="label" x="915" y="180">3. Risk Prediction</text>
+  <text class="sub" x="915" y="214">FastAPI + XGBoost</text>
+  <text class="sub" x="915" y="240">or offline backup</text>
+  <path class="line" d="M1060 198 H1130"/>
+
+  <rect class="box" x="1140" y="125" width="290" height="145"/>
+  <text class="label" x="1285" y="180">4. Save Result</text>
+  <text class="sub" x="1285" y="214">MongoDB or</text>
+  <text class="sub" x="1285" y="240">temporary memory</text>
+  <path class="line" d="M1430 198 H1500"/>
+
+  <rect class="result" x="1510" y="125" width="260" height="145"/>
+  <text class="label" x="1640" y="172">5. Monitoring</text>
+  <text class="sub" x="1640" y="205">Report, dashboard,</text>
+  <text class="sub" x="1640" y="231">alerts and GIS map</text>
+</svg>
