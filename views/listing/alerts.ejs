@@ -78,7 +78,8 @@
                         <div class="display-6 fw-extrabold text-danger"><%= c.delay_probability_percent %></div>
                         <div class="progress mt-2" style="height:6px;">
                             <div class="progress-bar bg-danger"
-                                 style="width:<%= Math.round(c.delay_probability * 100) %>%"></div>
+                                 role="progressbar"
+                                 data-width="<%= Math.round((c.delay_probability || 0) * 100) %>"></div>
                         </div>
                     </div>
 
@@ -116,3 +117,9 @@
     <% }) %>
 
 </div>
+
+<script>
+    document.querySelectorAll('.progress-bar[data-width]').forEach(function(bar) {
+        bar.style.width = bar.getAttribute('data-width') + '%';
+    });
+</script>

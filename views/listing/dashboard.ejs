@@ -184,14 +184,14 @@
 <!-- Chart.js CDN -->
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
 
+<script id="dashboard-data" type="application/json">
+<%- JSON.stringify({ stats, stateChartData, trendChartData, sectorChartData, milestoneData, factorChartData }) %>
+</script>
+
 <script>
 // Data from server
-const riskData   = { high: <%- stats.high %>, medium: <%- stats.medium %>, low: <%- stats.low %> };
-const stateData  = <%- JSON.stringify(stateChartData) %>;
-const trendData  = <%- JSON.stringify(trendChartData) %>;
-const sectorData = <%- JSON.stringify(sectorChartData) %>;
-const milestones = <%- JSON.stringify(milestoneData) %>;
-const factorData = <%- JSON.stringify(factorChartData) %>;
+const { stats, stateChartData: stateData, trendChartData: trendData, sectorChartData: sectorData, milestoneData: milestones, factorChartData: factorData } = JSON.parse(document.getElementById('dashboard-data').textContent);
+const riskData   = { high: stats.high, medium: stats.medium, low: stats.low };
 
 const chartDefaults = { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } } };
 

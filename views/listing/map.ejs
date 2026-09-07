@@ -66,9 +66,13 @@
 <!-- Leaflet JS -->
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 
+<script id="map-data" type="application/json">
+<%- JSON.stringify(mapCases) %>
+</script>
+
 <script>
 // Cases from server
-const cases = <%- JSON.stringify(mapCases) %>;
+const cases = JSON.parse(document.getElementById('map-data').textContent);
 
 // State → [lat, lng] approximate coordinates (state capitals / geographic centers)
 const stateCoords = {
