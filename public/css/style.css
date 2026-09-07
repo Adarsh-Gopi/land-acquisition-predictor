@@ -1,4 +1,9 @@
-/* Land Acquisition Predictive Analytics — Theme */
+/* ==========================================================================
+   Land Acquisition Delay Predictive Analytics — Design System & Theme
+   GovTech / Enterprise Dark Slate + Precision Cyan / Emerald
+   ========================================================================== */
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap');
 
 :root {
     --navy-primary: #0F172A;
@@ -6,12 +11,37 @@
     --navy-light: #334155;
     --teal-accent: #06B6D4;
     --teal-dark: #0891B2;
+
+    --bg-slate-dark: #0F172A;
+    --bg-slate-card: #1E293B;
+    --bg-slate-card-hover: #273549;
+    --teal-500: #06B6D4;
+    --teal-600: #0891B2;
+    --teal-glow: rgba(6, 182, 212, 0.45);
+    --emerald-500: #10B981;
+    --emerald-600: #059669;
+    --danger-red: #EF4444;
+    --amber-alert: #F59E0B;
+    --glass-border: rgba(255, 255, 255, 0.12);
+    --glass-bg: rgba(30, 41, 59, 0.65);
+}
+
+* {
+    box-sizing: border-box;
 }
 
 body {
     font-family: 'Inter', system-ui, -apple-system, sans-serif;
     color: #1e293b;
+    overflow-x: hidden;
+    margin: 0;
+    padding: 0;
+    -webkit-font-smoothing: antialiased;
 }
+
+/* ==========================================================================
+   Legacy / Utility Classes for Existing Views
+   ========================================================================== */
 
 .bg-navy {
     background-color: var(--navy-primary) !important;
@@ -45,6 +75,8 @@ body {
     background-color: var(--teal-accent);
     color: #0F172A;
     border: none;
+    font-weight: 600;
+    transition: all 0.2s ease;
 }
 
 .btn-teal:hover {
@@ -56,15 +88,13 @@ body {
     background-color: var(--navy-primary);
     color: #ffffff;
     border: none;
+    font-weight: 600;
+    transition: all 0.2s ease;
 }
 
 .btn-navy:hover {
     background-color: var(--navy-secondary);
     color: #ffffff;
-}
-
-.hero-section {
-    background: linear-gradient(135deg, #0F172A 0%, #1E293B 50%, #083344 100%);
 }
 
 .bg-gradient-danger {
@@ -94,7 +124,7 @@ body {
 
 .feature-card:hover {
     transform: translateY(-4px);
-    box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1) !important;
+    box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.2) !important;
 }
 
 .history-card {
@@ -103,10 +133,751 @@ body {
 
 .history-card:hover {
     transform: translateY(-4px);
-    box-shadow: 0 12px 28px -4px rgba(0, 0, 0, 0.12) !important;
+    box-shadow: 0 12px 28px -4px rgba(0, 0, 0, 0.25) !important;
 }
 
 .risk-bar {
     height: 6px;
     width: 100%;
+}
+
+/* ==========================================================================
+   Top Sticky Navigation (GovTech Design System)
+   ========================================================================== */
+
+.navbar-govtech {
+    background: rgba(15, 23, 42, 0.92);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    transition: all 0.3s ease;
+    z-index: 1050;
+}
+
+.brand-logo {
+    font-size: 1.35rem;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    color: #FFFFFF;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+}
+
+.brand-badge-icon {
+    background: linear-gradient(135deg, #0891B2, #06B6D4);
+    color: #ffffff;
+    width: 38px;
+    height: 38px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 10px;
+    box-shadow: 0 4px 14px rgba(6, 182, 212, 0.35);
+    font-size: 1.15rem;
+}
+
+.nav-link-gov {
+    color: #94A3B8 !important;
+    font-weight: 500;
+    font-size: 0.925rem;
+    padding: 0.5rem 0.95rem !important;
+    border-radius: 8px;
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    gap: 0.45rem;
+}
+
+.nav-link-gov:hover,
+.nav-link-gov.active {
+    color: #FFFFFF !important;
+    background: rgba(255, 255, 255, 0.06);
+}
+
+.nav-link-gov.active {
+    color: var(--teal-500) !important;
+}
+
+.status-badge-engine {
+    background: rgba(6, 182, 212, 0.12);
+    border: 1px solid rgba(6, 182, 212, 0.35);
+    color: #38BDF8;
+    padding: 0.45rem 0.9rem;
+    border-radius: 50rem;
+    font-size: 0.8rem;
+    font-weight: 600;
+    letter-spacing: 0.01em;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.pulse-indicator {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background-color: var(--teal-500);
+    box-shadow: 0 0 0 rgba(6, 182, 212, 0.7);
+    animation: pulseTeal 2s infinite;
+}
+
+@keyframes pulseTeal {
+    0% { box-shadow: 0 0 0 0 rgba(6, 182, 212, 0.7); }
+    70% { box-shadow: 0 0 0 8px rgba(6, 182, 212, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(6, 182, 212, 0); }
+}
+
+/* ==========================================================================
+   Hero Section with Farming Land Landscape Backdrop + GIS Overlay
+   ========================================================================== */
+
+.hero-container {
+    position: relative;
+    min-height: 88vh;
+    display: flex;
+    align-items: center;
+    padding: 5rem 0 4.5rem 0;
+    background: url('/images/hero_farmland_ashoka.jpg') center top / cover no-repeat;
+    overflow: hidden;
+}
+
+.hero-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, rgba(15, 23, 42, 0.65) 0%, rgba(15, 23, 42, 0.35) 45%, rgba(15, 23, 42, 0.88) 100%);
+    z-index: 1;
+}
+
+.hero-gis-grid {
+    display: none;
+}
+
+.hero-content {
+    position: relative;
+    z-index: 3;
+}
+
+.badge-sih {
+    background: rgba(16, 185, 129, 0.18);
+    border: 1px solid rgba(16, 185, 129, 0.45);
+    color: #34D399;
+    font-size: 0.825rem;
+    font-weight: 600;
+    padding: 0.4rem 0.95rem;
+    border-radius: 50rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    margin-bottom: 1.5rem;
+    backdrop-filter: blur(8px);
+}
+
+.hero-h1 {
+    font-size: clamp(2.3rem, 4.2vw, 3.6rem);
+    font-weight: 800;
+    line-height: 1.15;
+    letter-spacing: -0.03em;
+    color: #FFFFFF;
+    margin-bottom: 1.4rem;
+    text-shadow: 0 2px 14px rgba(0, 0, 0, 0.8);
+}
+
+.hero-description {
+    font-size: 1.1rem;
+    line-height: 1.65;
+    color: #F1F5F9;
+    max-width: 600px;
+    margin-bottom: 2.2rem;
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.8);
+}
+
+/* CTA Buttons */
+.cta-cluster {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.85rem;
+}
+
+.btn-primary-teal {
+    background: linear-gradient(135deg, #0891B2 0%, #06B6D4 100%);
+    color: #FFFFFF !important;
+    border: none;
+    font-weight: 600;
+    font-size: 0.975rem;
+    min-height: 48px;
+    padding: 0.85rem 1.6rem;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(6, 182, 212, 0.45);
+    transition: all 0.25s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.55rem;
+    text-decoration: none;
+}
+
+.btn-primary-teal:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 25px rgba(6, 182, 212, 0.65);
+    background: linear-gradient(135deg, #0e7490 0%, #0891B2 100%);
+}
+
+.btn-outline-gov {
+    background: rgba(255, 255, 255, 0.05);
+    color: #E2E8F0 !important;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(8px);
+    font-weight: 600;
+    font-size: 0.95rem;
+    min-height: 48px;
+    padding: 0.85rem 1.45rem;
+    border-radius: 12px;
+    transition: all 0.25s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.55rem;
+    text-decoration: none;
+}
+
+.btn-outline-gov:hover {
+    background: rgba(255, 255, 255, 0.12);
+    border-color: rgba(255, 255, 255, 0.4);
+    color: #FFFFFF !important;
+    transform: translateY(-2px);
+}
+
+.btn-outline-danger-gov {
+    background: rgba(239, 68, 68, 0.08);
+    color: #F87171 !important;
+    border: 1px solid rgba(239, 68, 68, 0.35);
+    backdrop-filter: blur(8px);
+    font-weight: 600;
+    font-size: 0.95rem;
+    min-height: 48px;
+    padding: 0.85rem 1.45rem;
+    border-radius: 12px;
+    transition: all 0.25s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.55rem;
+    text-decoration: none;
+}
+
+.btn-outline-danger-gov:hover {
+    background: rgba(239, 68, 68, 0.2);
+    border-color: var(--danger-red);
+    color: #FFFFFF !important;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 18px rgba(239, 68, 68, 0.3);
+}
+
+/* ==========================================================================
+   Real-Time Telemetry Glass Card
+   ========================================================================== */
+
+.glass-monitor-card {
+    background: radial-gradient(120% 120% at 50% 0%, rgba(15, 23, 42, 0.85) 0%, rgba(10, 16, 28, 0.95) 100%);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-top: 2px solid var(--teal-500);
+    border-radius: 24px;
+    padding: 2rem;
+    box-shadow: 0 25px 60px -15px rgba(0, 0, 0, 0.7), 0 0 35px rgba(6, 182, 212, 0.15);
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+    position: relative;
+    overflow: hidden;
+}
+
+.monitor-card-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    padding-bottom: 1.15rem;
+    margin-bottom: 1.5rem;
+}
+
+.monitor-header-title {
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: #FFFFFF;
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    letter-spacing: -0.01em;
+}
+
+.live-pulse-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    font-size: 0.72rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: #34D399;
+    background: rgba(16, 185, 129, 0.12);
+    padding: 0.35rem 0.8rem;
+    border-radius: 50rem;
+    border: 1px solid rgba(16, 185, 129, 0.3);
+}
+
+.live-dot {
+    width: 6px;
+    height: 6px;
+    background-color: var(--emerald-500);
+    border-radius: 50%;
+    animation: blink 1.5s infinite;
+}
+
+@keyframes blink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.3; }
+}
+
+.metric-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.1rem;
+    margin-bottom: 1.5rem;
+}
+
+.metric-box {
+    border-radius: 16px;
+    padding: 1.25rem 1.15rem;
+    transition: transform 0.2s ease, border-color 0.2s ease;
+    position: relative;
+}
+
+.metric-box:hover {
+    transform: translateY(-2px);
+}
+
+.metric-box-title {
+    font-size: 0.78rem;
+    font-weight: 600;
+    margin-bottom: 0.55rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.metric-box-val {
+    font-family: 'JetBrains Mono', monospace, sans-serif;
+    font-size: 1.95rem;
+    font-weight: 700;
+    line-height: 1;
+    letter-spacing: -0.02em;
+}
+
+.metric-silver { color: #F8FAFC; }
+.metric-red { color: #F87171; }
+.metric-amber { color: #FBBF24; }
+.metric-emerald { color: #34D399; }
+
+.pulsing-red-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--danger-red);
+    display: inline-block;
+    box-shadow: 0 0 0 rgba(239, 68, 68, 0.8);
+    animation: pulseRed 1.8s infinite;
+}
+
+@keyframes pulseRed {
+    0% { box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.8); }
+    70% { box-shadow: 0 0 0 6px rgba(239, 68, 68, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(239, 68, 68, 0); }
+}
+
+.monitor-card-footer {
+    background: rgba(15, 23, 42, 0.7);
+    border: 1px solid rgba(255, 255, 255, 0.07);
+    border-radius: 14px;
+    padding: 0.95rem 1.15rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.accuracy-pill {
+    background: rgba(6, 182, 212, 0.15);
+    color: #22D3EE;
+    border: 1px solid rgba(6, 182, 212, 0.35);
+    font-size: 0.78rem;
+    font-weight: 700;
+    padding: 0.35rem 0.75rem;
+    border-radius: 8px;
+    box-shadow: 0 0 12px rgba(6, 182, 212, 0.25);
+}
+
+/* ==========================================================================
+   Live Corridor Telemetry Ticker Strip
+   ========================================================================== */
+
+.live-ticker-strip {
+    background: linear-gradient(90deg, #070B14 0%, #0F172A 50%, #070B14 100%);
+    border-top: 1px solid rgba(6, 182, 212, 0.25);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+    padding: 0.85rem 0;
+    font-size: 0.835rem;
+    text-align: center;
+}
+
+/* ==========================================================================
+   Core Architecture & Workflow Section
+   ========================================================================== */
+
+.section-architecture {
+    background: #0B1120;
+    position: relative;
+    padding: 6rem 0;
+    border-top: 1px solid rgba(255, 255, 255, 0.06);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.section-tag {
+    color: var(--teal-500);
+    font-size: 0.825rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin-bottom: 0.6rem;
+    display: block;
+}
+
+.section-heading {
+    font-size: clamp(2rem, 3.2vw, 2.75rem);
+    font-weight: 800;
+    color: #FFFFFF;
+    letter-spacing: -0.02em;
+    margin-bottom: 1rem;
+}
+
+.section-subtext {
+    color: #94A3B8;
+    font-size: 1.05rem;
+    max-width: 680px;
+    margin: 0 auto 3.5rem auto;
+    line-height: 1.6;
+}
+
+.arch-card {
+    background: linear-gradient(180deg, rgba(30, 41, 59, 0.8) 0%, rgba(15, 23, 42, 0.95) 100%);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 20px;
+    padding: 2.25rem 2rem;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 16px 36px -10px rgba(0, 0, 0, 0.5);
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    position: relative;
+}
+
+.arch-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 20px 35px -10px rgba(0, 0, 0, 0.6);
+}
+
+.icon-wrapper-circle {
+    width: 52px;
+    height: 52px;
+    border-radius: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    margin-bottom: 0;
+}
+
+.icon-blue {
+    background: rgba(59, 130, 246, 0.12);
+    color: #60A5FA;
+    border: 1px solid rgba(59, 130, 246, 0.25);
+    box-shadow: 0 0 20px rgba(59, 130, 246, 0.2);
+}
+
+.icon-green {
+    background: rgba(16, 185, 129, 0.12);
+    color: #34D399;
+    border: 1px solid rgba(16, 185, 129, 0.25);
+    box-shadow: 0 0 20px rgba(16, 185, 129, 0.2);
+}
+
+.icon-red {
+    background: rgba(239, 68, 68, 0.12);
+    color: #F87171;
+    border: 1px solid rgba(239, 68, 68, 0.25);
+    box-shadow: 0 0 20px rgba(239, 68, 68, 0.2);
+}
+
+.arch-card-title {
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: #FFFFFF;
+    margin-bottom: 0.85rem;
+    letter-spacing: -0.01em;
+}
+
+.arch-card-desc {
+    color: #94A3B8;
+    font-size: 0.935rem;
+    line-height: 1.65;
+    margin-bottom: 1.6rem;
+    flex-grow: 1;
+}
+
+.arch-pill-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.55rem;
+    margin-top: auto;
+}
+
+.arch-pill-item {
+    background: rgba(15, 23, 42, 0.8);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: #CBD5E1;
+    font-size: 0.775rem;
+    font-weight: 500;
+    padding: 0.35rem 0.75rem;
+    border-radius: 6px;
+}
+
+.btn-launch-assessment {
+    background: linear-gradient(135deg, #0891B2 0%, #06B6D4 100%);
+    color: #FFFFFF !important;
+    font-weight: 700;
+    font-size: 1.075rem;
+    padding: 1.15rem 2.85rem;
+    border-radius: 50rem;
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    box-shadow: 0 10px 35px rgba(6, 182, 212, 0.5), 0 0 20px rgba(6, 182, 212, 0.25);
+    transition: all 0.3s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.65rem;
+    text-decoration: none;
+}
+
+.btn-launch-assessment:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 14px 40px rgba(6, 182, 212, 0.65);
+    color: #FFFFFF;
+}
+
+/* ==========================================================================
+   Footer Component (GovTech Theme)
+   ========================================================================== */
+
+.footer-govtech {
+    background: #090D16;
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+    padding: 4rem 0 2.5rem 0;
+    color: #94A3B8;
+}
+
+.footer-title {
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: #FFFFFF;
+    margin-bottom: 0.4rem;
+}
+
+.footer-subtitle {
+    font-size: 0.925rem;
+    color: #64748B;
+    margin-bottom: 1.5rem;
+}
+
+.tech-stack-badges {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.65rem;
+    align-items: center;
+}
+
+.tech-badge {
+    background: rgba(30, 41, 59, 0.7);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    color: #CBD5E1;
+    font-size: 0.8rem;
+    font-weight: 600;
+    padding: 0.4rem 0.85rem;
+    border-radius: 8px;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+}
+
+.tech-badge i {
+    color: var(--teal-500);
+}
+
+.footer-bottom {
+    margin-top: 3rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.85rem;
+    color: #64748B;
+}
+
+/* ==========================================================================
+   Responsive Adjustments
+   ========================================================================== */
+
+@media (max-width: 991px) {
+    .hero-container {
+        padding: 4.5rem 0 3.5rem 0;
+    }
+    .glass-monitor-card {
+        margin-top: 2rem;
+    }
+    .footer-govtech {
+        text-align: center;
+    }
+    .tech-stack-badges {
+        justify-content: center;
+        margin-top: 1rem;
+    }
+    .footer-bottom {
+        justify-content: center;
+        gap: 1rem;
+        text-align: center;
+    }
+}
+
+@media (max-width: 576px) {
+    .metric-grid {
+        grid-template-columns: 1fr;
+    }
+    .cta-cluster {
+        flex-direction: column;
+    }
+    .cta-cluster a {
+        width: 100%;
+        justify-content: center;
+    }
+}
+
+/* ==========================================================================
+   Theme Toggle Button & Landing Page Light Mode
+   ========================================================================== */
+
+.btn-theme-toggle {
+    width: 38px;
+    height: 38px;
+    border-radius: 10px;
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    color: #F8FAFC;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+    padding: 0;
+}
+
+.btn-theme-toggle:hover {
+    background: rgba(255, 255, 255, 0.18);
+    border-color: var(--teal-500);
+    color: var(--teal-500);
+    transform: scale(1.06);
+}
+
+/* Light Theme Overrides (Landing Page) */
+body.light-theme .glass-monitor-card {
+    background: rgba(255, 255, 255, 0.92);
+    border: 1px solid rgba(15, 23, 42, 0.12);
+    border-top: 2px solid var(--teal-500);
+    box-shadow: 0 20px 45px -10px rgba(0, 0, 0, 0.12);
+    backdrop-filter: blur(20px);
+}
+
+body.light-theme .monitor-header-title {
+    color: #0F172A !important;
+}
+
+body.light-theme .monitor-card-header {
+    border-bottom-color: rgba(15, 23, 42, 0.08);
+}
+
+body.light-theme .metric-box {
+    background: #FFFFFF !important;
+    border: 1px solid rgba(15, 23, 42, 0.1) !important;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03);
+}
+
+body.light-theme .metric-box-title {
+    color: #64748B !important;
+}
+
+body.light-theme .metric-silver {
+    color: #0F172A !important;
+}
+
+body.light-theme .monitor-card-footer {
+    background: #F1F5F9 !important;
+    border-color: rgba(15, 23, 42, 0.08) !important;
+}
+
+body.light-theme .monitor-card-footer div {
+    color: #0F172A;
+}
+
+body.light-theme .live-ticker-strip {
+    background: #F1F5F9;
+    border-top: 1px solid rgba(6, 182, 212, 0.35);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+}
+
+body.light-theme .live-ticker-strip span {
+    color: #334155 !important;
+}
+
+body.light-theme .live-ticker-strip strong {
+    color: #0F172A !important;
+}
+
+body.light-theme .section-architecture {
+    background: #F8FAFC;
+    border-top: 1px solid rgba(0, 0, 0, 0.08);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+}
+
+body.light-theme .section-heading {
+    color: #0F172A !important;
+}
+
+body.light-theme .section-subtext {
+    color: #64748B !important;
+}
+
+body.light-theme .arch-card {
+    background: #FFFFFF !important;
+    border: 1px solid rgba(0, 0, 0, 0.08) !important;
+    box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.06);
+}
+
+body.light-theme .arch-card-title {
+    color: #0F172A !important;
+}
+
+body.light-theme .arch-card-desc {
+    color: #64748B !important;
+}
+
+body.light-theme .arch-pill-item {
+    background: #F1F5F9 !important;
+    border-color: rgba(0, 0, 0, 0.06) !important;
+    color: #334155 !important;
 }
