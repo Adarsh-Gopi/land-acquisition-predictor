@@ -393,15 +393,11 @@ body {
    ========================================================================== */
 
 .glass-monitor-card {
-    background-color: #121212;
-    /* background: radial-gradient(120% 120% at 50% 0%, rgba(15, 23, 42, 0.85) 0%, rgba(10, 16, 28, 0.95) 100%); */
-    border: 1px solid rgba(255, 255, 255, 0.12);
-    border-top: 2px solid var(--teal-500);
-    border-radius: 24px;
+    background-color: #121212 !important;
+    border: 1px solid rgba(255, 255, 255, 0.14) !important;
+    border-radius: 20px;
     padding: 2rem;
-    box-shadow: 0 25px 60px -15px rgba(0, 0, 0, 0.7), 0 0 35px rgba(6, 182, 212, 0.15);
-    backdrop-filter: blur(24px);
-    -webkit-backdrop-filter: blur(24px);
+    box-shadow: 0 25px 60px -15px rgba(0, 0, 0, 0.85);
     position: relative;
     overflow: hidden;
 }
@@ -433,17 +429,17 @@ body {
     font-weight: 700;
     text-transform: uppercase;
     letter-spacing: 0.06em;
-    color: #34D399;
-    background: rgba(16, 185, 129, 0.12);
+    color: #1ED760;
+    background: rgba(30, 215, 96, 0.12);
     padding: 0.35rem 0.8rem;
-    border-radius: 50rem;
-    border: 1px solid rgba(16, 185, 129, 0.3);
+    border-radius: 500px;
+    border: 1px solid rgba(30, 215, 96, 0.28);
 }
 
 .live-dot {
     width: 6px;
     height: 6px;
-    background-color: var(--emerald-500);
+    background-color: #1ED760;
     border-radius: 50%;
     animation: blink 1.5s infinite;
 }
@@ -468,76 +464,74 @@ body {
 }
 
 .metric-box {
-    border-radius: 16px;
+    background-color: #282828 !important;
+    border: 1px solid rgba(255, 255, 255, 0.08) !important;
+    border-radius: 14px;
     padding: 1.25rem 1.15rem;
-    transition: transform 0.2s ease, border-color 0.2s ease;
+    transition: transform 0.2s ease, background-color 0.2s ease, border-color 0.2s ease;
     position: relative;
 }
 
 .metric-box:hover {
+    background-color: #323232 !important;
     transform: translateY(-2px);
+    border-color: rgba(255, 255, 255, 0.14) !important;
 }
 
 .metric-box-title {
-    font-size: 0.78rem;
-    font-weight: 600;
+    font-size: 0.82rem;
+    font-weight: 700;
+    color: #FFFFFF;
     margin-bottom: 0.55rem;
     display: flex;
     align-items: center;
     justify-content: space-between;
+    letter-spacing: -0.01em;
 }
 
 .metric-box-val {
-    font-family: 'JetBrains Mono', monospace, sans-serif;
-    font-size: 1.95rem;
-    font-weight: 700;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    font-size: 2.15rem;
+    font-weight: 800;
     line-height: 1;
-    letter-spacing: -0.02em;
+    letter-spacing: -0.03em;
+    color: #FFFFFF !important;
 }
 
-.metric-silver {
-    color: #F8FAFC;
-}
-
-.metric-red {
-    color: #F87171;
-}
-
-.metric-amber {
-    color: #FBBF24;
-}
-
+.metric-silver,
+.metric-red,
+.metric-amber,
 .metric-emerald {
-    color: #34D399;
+    color: #FFFFFF !important;
 }
 
 .pulsing-red-dot {
     width: 8px;
     height: 8px;
     border-radius: 50%;
-    background: var(--danger-red);
+    background: #F87171;
     display: inline-block;
-    box-shadow: 0 0 0 rgba(239, 68, 68, 0.8);
+    box-shadow: 0 0 0 rgba(248, 113, 113, 0.8);
     animation: pulseRed 1.8s infinite;
 }
 
 @keyframes pulseRed {
     0% {
-        box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.8);
+        box-shadow: 0 0 0 0 rgba(248, 113, 113, 0.8);
     }
 
     70% {
-        box-shadow: 0 0 0 6px rgba(239, 68, 68, 0);
+        box-shadow: 0 0 0 6px rgba(248, 113, 113, 0);
     }
 
     100% {
-        box-shadow: 0 0 0 0 rgba(239, 68, 68, 0);
+        box-shadow: 0 0 0 0 rgba(248, 113, 113, 0);
     }
 }
 
 .monitor-card-footer {
-    background: rgba(15, 23, 42, 0.7);
-    border: 1px solid rgba(255, 255, 255, 0.07);
+    background-color: #282828 !important;
+    border: 1px solid rgba(255, 255, 255, 0.08) !important;
     border-radius: 14px;
     padding: 0.95rem 1.15rem;
     display: flex;
@@ -546,14 +540,28 @@ body {
 }
 
 .accuracy-pill {
-    background: rgba(6, 182, 212, 0.15);
-    color: #22D3EE;
-    border: 1px solid rgba(6, 182, 212, 0.35);
-    font-size: 0.78rem;
-    font-weight: 700;
-    padding: 0.35rem 0.75rem;
-    border-radius: 8px;
-    box-shadow: 0 0 12px rgba(6, 182, 212, 0.25);
+    background-color: #FFFFFF !important;
+    color: #000000 !important;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    font-size: 0.82rem;
+    font-weight: 800 !important;
+    padding: 0.5rem 1.15rem;
+    border-radius: 500px !important;
+    border: none !important;
+    letter-spacing: 0.01em;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.35);
+    transition: transform 0.2s ease, background-color 0.2s ease, box-shadow 0.2s ease;
+    cursor: pointer;
+    user-select: none;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.accuracy-pill:hover {
+    background-color: #F3F4F6 !important;
+    transform: scale(1.04);
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.45);
 }
 
 /* ==========================================================================
@@ -870,8 +878,20 @@ body.light-theme .metric-box-title {
     color: #64748B !important;
 }
 
-body.light-theme .metric-silver {
+body.light-theme .metric-box-val {
     color: #0F172A !important;
+}
+
+body.light-theme .metric-silver,
+body.light-theme .metric-red,
+body.light-theme .metric-amber,
+body.light-theme .metric-emerald {
+    color: #0F172A !important;
+}
+
+body.light-theme .accuracy-pill {
+    background-color: #0F172A !important;
+    color: #FFFFFF !important;
 }
 
 body.light-theme .monitor-card-footer {
