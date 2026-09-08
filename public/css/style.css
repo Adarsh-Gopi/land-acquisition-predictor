@@ -6,6 +6,10 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap');
 
 :root {
+    --bs-font-sans-serif: "Circular", "Helvetica Neue", Arial, sans-serif !important;
+    --bs-body-font-family: "Circular", "Helvetica Neue", Arial, sans-serif !important;
+    --font-main: "Circular", "Helvetica Neue", Arial, sans-serif;
+
     --navy-primary: #0F172A;
     --navy-secondary: #1E293B;
     --navy-light: #334155;
@@ -24,14 +28,18 @@
     --amber-alert: #F59E0B;
     --glass-border: rgba(255, 255, 255, 0.12);
     --glass-bg: rgba(30, 41, 59, 0.65);
+    --glass-monitor-card-bg: radial-gradient(120% 120% at 50% 0%, rgba(15, 23, 42, 0.85) 0%, rgba(10, 16, 28, 0.95) 100%);
 }
 
 * {
     box-sizing: border-box;
 }
 
+body, button, input, select, textarea, h1, h2, h3, h4, h5, h6, .btn, .badge, .card, .navbar {
+    font-family: "Circular", "Helvetica Neue", Arial, sans-serif !important;
+}
+
 body {
-    font-family: 'Inter', system-ui, -apple-system, sans-serif;
     color: #1e293b;
     overflow-x: hidden;
     margin: 0;
@@ -224,9 +232,17 @@ body {
 }
 
 @keyframes pulseTeal {
-    0% { box-shadow: 0 0 0 0 rgba(6, 182, 212, 0.7); }
-    70% { box-shadow: 0 0 0 8px rgba(6, 182, 212, 0); }
-    100% { box-shadow: 0 0 0 0 rgba(6, 182, 212, 0); }
+    0% {
+        box-shadow: 0 0 0 0 rgba(6, 182, 212, 0.7);
+    }
+
+    70% {
+        box-shadow: 0 0 0 8px rgba(6, 182, 212, 0);
+    }
+
+    100% {
+        box-shadow: 0 0 0 0 rgba(6, 182, 212, 0);
+    }
 }
 
 /* ==========================================================================
@@ -377,7 +393,8 @@ body {
    ========================================================================== */
 
 .glass-monitor-card {
-    background: radial-gradient(120% 120% at 50% 0%, rgba(15, 23, 42, 0.85) 0%, rgba(10, 16, 28, 0.95) 100%);
+    background-color: #121212;
+    /* background: radial-gradient(120% 120% at 50% 0%, rgba(15, 23, 42, 0.85) 0%, rgba(10, 16, 28, 0.95) 100%); */
     border: 1px solid rgba(255, 255, 255, 0.12);
     border-top: 2px solid var(--teal-500);
     border-radius: 24px;
@@ -432,8 +449,15 @@ body {
 }
 
 @keyframes blink {
-    0%, 100% { opacity: 1; }
-    50% { opacity: 0.3; }
+
+    0%,
+    100% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: 0.3;
+    }
 }
 
 .metric-grid {
@@ -471,10 +495,21 @@ body {
     letter-spacing: -0.02em;
 }
 
-.metric-silver { color: #F8FAFC; }
-.metric-red { color: #F87171; }
-.metric-amber { color: #FBBF24; }
-.metric-emerald { color: #34D399; }
+.metric-silver {
+    color: #F8FAFC;
+}
+
+.metric-red {
+    color: #F87171;
+}
+
+.metric-amber {
+    color: #FBBF24;
+}
+
+.metric-emerald {
+    color: #34D399;
+}
 
 .pulsing-red-dot {
     width: 8px;
@@ -487,9 +522,17 @@ body {
 }
 
 @keyframes pulseRed {
-    0% { box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.8); }
-    70% { box-shadow: 0 0 0 6px rgba(239, 68, 68, 0); }
-    100% { box-shadow: 0 0 0 0 rgba(239, 68, 68, 0); }
+    0% {
+        box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.8);
+    }
+
+    70% {
+        box-shadow: 0 0 0 6px rgba(239, 68, 68, 0);
+    }
+
+    100% {
+        box-shadow: 0 0 0 0 rgba(239, 68, 68, 0);
+    }
 }
 
 .monitor-card-footer {
@@ -737,16 +780,20 @@ body {
     .hero-container {
         padding: 4.5rem 0 3.5rem 0;
     }
+
     .glass-monitor-card {
         margin-top: 2rem;
     }
+
     .footer-govtech {
         text-align: center;
     }
+
     .tech-stack-badges {
         justify-content: center;
         margin-top: 1rem;
     }
+
     .footer-bottom {
         justify-content: center;
         gap: 1rem;
@@ -758,9 +805,11 @@ body {
     .metric-grid {
         grid-template-columns: 1fr;
     }
+
     .cta-cluster {
         flex-direction: column;
     }
+
     .cta-cluster a {
         width: 100%;
         justify-content: center;
