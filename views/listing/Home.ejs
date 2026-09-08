@@ -140,13 +140,13 @@
 <div class="live-ticker-strip text-center">
     <div class="container d-flex flex-wrap align-items-center justify-content-center gap-3 gap-lg-4 text-center">
         <div class="d-flex align-items-center justify-content-center gap-2">
-            <span class="badge" style="background: rgba(6, 182, 212, 0.18); color: #38BDF8; border: 1px solid rgba(6, 182, 212, 0.4); font-size: 0.7rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; padding: 0.3rem 0.65rem; border-radius: 6px;">Live Corridor Feed</span>
+            <span class="badge" style="background: rgba(30, 215, 96, 0.15); color: #1ED760; border: 1px solid rgba(30, 215, 96, 0.35); font-size: 0.7rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; padding: 0.35rem 0.75rem; border-radius: 500px;">Live Corridor Feed</span>
             <span style="color: #E2E8F0; font-weight: 500;">NHAI Corridor 14B Rohtak-Sonipat clearance telemetry synchronized</span>
         </div>
         <span class="text-secondary d-none d-lg-inline opacity-50">•</span>
-        <div class="d-flex flex-wrap align-items-center justify-content-center gap-3 gap-lg-4 text-slate-400" style="font-size: 0.78rem; color: #94A3B8;">
+        <div class="d-flex flex-wrap align-items-center justify-content-center gap-3 gap-lg-4" style="font-size: 0.78rem; color: #A7A7A7;">
             <span><i class="bi bi-check-circle-fill text-success me-1"></i> Section 3C/15 Objection Queue: <strong class="text-white">Low Latency</strong></span>
-            <span><i class="bi bi-shield-check text-teal me-1"></i> Model Confidence: <strong class="text-white">94.2%</strong></span>
+            <span><i class="bi bi-shield-check me-1" style="color: #1ED760;"></i> Model Confidence: <strong class="text-white">94.2%</strong></span>
             <span><i class="bi bi-geo-alt-fill text-warning me-1"></i> Geo-Boundaries: <strong class="text-white">Updated Today</strong></span>
         </div>
     </div>
@@ -168,63 +168,63 @@
         <div class="row g-4 text-start justify-content-center mb-5">
             <!-- Card 1: Comprehensive Input -->
             <div class="col-md-6 col-lg-4">
-                <div class="arch-card" style="border-top: 2px solid #3B82F6;">
+                <div class="arch-card">
                     <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 1.5rem;">
                         <div class="icon-wrapper-circle icon-blue">
                             <i class="bi bi-input-cursor-text"></i>
                         </div>
-                        <span class="badge" style="background: rgba(59, 130, 246, 0.12); color: #93C5FD; border: 1px solid rgba(59, 130, 246, 0.3); font-family: 'JetBrains Mono', monospace; font-size: 0.725rem; font-weight: 700; padding: 0.35rem 0.7rem; border-radius: 6px;">STAGE 01</span>
+                        <span class="badge" style="background: rgba(255, 255, 255, 0.08); color: #E5E5E5; border: 1px solid rgba(255, 255, 255, 0.14); font-size: 0.7rem; font-weight: 700; padding: 0.35rem 0.75rem; border-radius: 500px; letter-spacing: 0.05em;">STAGE 01</span>
                     </div>
                     <h3 class="arch-card-title">Comprehensive Input</h3>
                     <p class="arch-card-desc">
                         Ingests granular land records including parcel boundaries (Acres/Ha), individual & joint title holdings, historical litigations, and Section 3C/15 statutory public objections into structured feature matrices.
                     </p>
                     <div class="arch-pill-list">
-                        <span class="arch-pill-item"><i class="bi bi-geo text-teal me-1"></i> Parcel Topography</span>
-                        <span class="arch-pill-item"><i class="bi bi-people text-teal me-1"></i> Title Holdings</span>
-                        <span class="arch-pill-item"><i class="bi bi-file-earmark-ruled text-teal me-1"></i> Sec 3C/15 Objections</span>
+                        <span class="arch-pill-item"><i class="bi bi-geo me-1" style="color: #1ED760;"></i> Parcel Topography</span>
+                        <span class="arch-pill-item"><i class="bi bi-people me-1" style="color: #1ED760;"></i> Title Holdings</span>
+                        <span class="arch-pill-item"><i class="bi bi-file-earmark-ruled me-1" style="color: #1ED760;"></i> Sec 3C/15 Objections</span>
                     </div>
                 </div>
             </div>
 
             <!-- Card 2: Dual-Engine ML Prediction -->
             <div class="col-md-6 col-lg-4">
-                <div class="arch-card" style="border-top: 2px solid #06B6D4; box-shadow: 0 16px 40px -10px rgba(6, 182, 212, 0.25);">
+                <div class="arch-card">
                     <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 1.5rem;">
                         <div class="icon-wrapper-circle icon-green">
                             <i class="bi bi-cpu"></i>
                         </div>
-                        <span class="badge" style="background: rgba(6, 182, 212, 0.15); color: #22D3EE; border: 1px solid rgba(6, 182, 212, 0.4); font-family: 'JetBrains Mono', monospace; font-size: 0.725rem; font-weight: 700; padding: 0.35rem 0.7rem; border-radius: 6px;">STAGE 02 • CORE</span>
+                        <span class="badge" style="background: rgba(30, 215, 96, 0.15); color: #1ED760; border: 1px solid rgba(30, 215, 96, 0.35); font-size: 0.7rem; font-weight: 700; padding: 0.35rem 0.75rem; border-radius: 500px; letter-spacing: 0.05em;">STAGE 02 • CORE</span>
                     </div>
                     <h3 class="arch-card-title">Dual-Engine ML Prediction</h3>
                     <p class="arch-card-desc">
                         Runs an ensemble XGBoost architecture executing dual inference: a regressor outputting continuous delay month forecasts (R² = 0.98) and a multi-class probability classifier tiering Low, Medium, and High risks.
                     </p>
                     <div class="arch-pill-list">
-                        <span class="arch-pill-item"><i class="bi bi-graph-up-arrow text-teal me-1"></i> R² = 0.98 Regression</span>
-                        <span class="arch-pill-item"><i class="bi bi-layers text-teal me-1"></i> 3-Tier Classification</span>
-                        <span class="arch-pill-item"><i class="bi bi-lightning-charge text-teal me-1"></i> Real-time Scoring</span>
+                        <span class="arch-pill-item"><i class="bi bi-graph-up-arrow me-1" style="color: #1ED760;"></i> R² = 0.98 Regression</span>
+                        <span class="arch-pill-item"><i class="bi bi-layers me-1" style="color: #1ED760;"></i> 3-Tier Classification</span>
+                        <span class="arch-pill-item"><i class="bi bi-lightning-charge me-1" style="color: #1ED760;"></i> Real-time Scoring</span>
                     </div>
                 </div>
             </div>
 
             <!-- Card 3: Actionable Prevention -->
             <div class="col-md-6 col-lg-4">
-                <div class="arch-card" style="border-top: 2px solid #EF4444;">
+                <div class="arch-card">
                     <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 1.5rem;">
                         <div class="icon-wrapper-circle icon-red">
                             <i class="bi bi-shield-exclamation"></i>
                         </div>
-                        <span class="badge" style="background: rgba(239, 68, 68, 0.12); color: #FCA5A5; border: 1px solid rgba(239, 68, 68, 0.3); font-family: 'JetBrains Mono', monospace; font-size: 0.725rem; font-weight: 700; padding: 0.35rem 0.7rem; border-radius: 6px;">STAGE 03</span>
+                        <span class="badge" style="background: rgba(248, 113, 113, 0.14); color: #FCA5A5; border: 1px solid rgba(248, 113, 113, 0.3); font-size: 0.7rem; font-weight: 700; padding: 0.35rem 0.75rem; border-radius: 500px; letter-spacing: 0.05em;">STAGE 03</span>
                     </div>
                     <h3 class="arch-card-title">Actionable Prevention</h3>
                     <p class="arch-card-desc">
                         Prescriptive mitigation intelligence triggering statutory protocols, Section 64 fast-track legal hearings, priority arbitration escalations, and automated compensation fund escrow clearance timelines.
                     </p>
                     <div class="arch-pill-list">
-                        <span class="arch-pill-item"><i class="bi bi-briefcase text-teal me-1"></i> CALA Mitigation</span>
-                        <span class="arch-pill-item"><i class="bi bi-journal-check text-teal me-1"></i> Section 64 Expedited</span>
-                        <span class="arch-pill-item"><i class="bi bi-cash-stack text-teal me-1"></i> Escrow Settlement</span>
+                        <span class="arch-pill-item"><i class="bi bi-briefcase me-1" style="color: #1ED760;"></i> CALA Mitigation</span>
+                        <span class="arch-pill-item"><i class="bi bi-journal-check me-1" style="color: #1ED760;"></i> Section 64 Expedited</span>
+                        <span class="arch-pill-item"><i class="bi bi-cash-stack me-1" style="color: #1ED760;"></i> Escrow Settlement</span>
                     </div>
                 </div>
             </div>
@@ -238,7 +238,7 @@
                     <span>Launch Assessment Form Now</span>
                     <i class="bi bi-arrow-right-circle fs-5"></i>
                 </a>
-                <span style="font-size: 0.825rem; color: #94A3B8;">Takes &lt; 3 minutes • Instant ML Duration Forecasting &amp; Risk Classification</span>
+                <span style="font-size: 0.825rem; color: #A7A7A7;">Takes &lt; 3 minutes • Instant ML Duration Forecasting &amp; Risk Classification</span>
             </div>
         </div>
     </div>

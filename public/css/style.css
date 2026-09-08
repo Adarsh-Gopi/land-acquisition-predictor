@@ -154,10 +154,10 @@ body {
    ========================================================================== */
 
 .navbar-govtech {
-    background: rgba(15, 23, 42, 0.92);
+    background-color: #121212 !important;
     backdrop-filter: blur(16px);
     -webkit-backdrop-filter: blur(16px);
-    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08) !important;
     transition: all 0.3s ease;
     z-index: 1050;
 }
@@ -174,48 +174,48 @@ body {
 }
 
 .brand-badge-icon {
-    background: linear-gradient(135deg, #0891B2, #06B6D4);
-    color: #ffffff;
+    background: #1ED760;
+    color: #000000;
     width: 38px;
     height: 38px;
     display: inline-flex;
     align-items: center;
     justify-content: center;
     border-radius: 10px;
-    box-shadow: 0 4px 14px rgba(6, 182, 212, 0.35);
+    box-shadow: 0 4px 14px rgba(30, 215, 96, 0.35);
     font-size: 1.15rem;
 }
 
 .nav-link-gov {
-    color: #94A3B8 !important;
-    font-weight: 500;
+    color: #B3B3B3 !important;
+    font-weight: 600;
     font-size: 0.925rem;
     padding: 0.5rem 0.95rem !important;
-    border-radius: 8px;
+    border-radius: 500px;
     transition: all 0.2s ease;
     display: flex;
     align-items: center;
     gap: 0.45rem;
 }
 
-.nav-link-gov:hover,
-.nav-link-gov.active {
+.nav-link-gov:hover {
     color: #FFFFFF !important;
-    background: rgba(255, 255, 255, 0.06);
+    background: rgba(255, 255, 255, 0.08);
 }
 
 .nav-link-gov.active {
-    color: var(--teal-500) !important;
+    color: #FFFFFF !important;
+    background: #282828 !important;
 }
 
 .status-badge-engine {
-    background: rgba(6, 182, 212, 0.12);
-    border: 1px solid rgba(6, 182, 212, 0.35);
-    color: #38BDF8;
-    padding: 0.45rem 0.9rem;
-    border-radius: 50rem;
+    background: #282828 !important;
+    border: 1px solid rgba(255, 255, 255, 0.1) !important;
+    color: #FFFFFF !important;
+    padding: 0.45rem 0.95rem;
+    border-radius: 500px;
     font-size: 0.8rem;
-    font-weight: 600;
+    font-weight: 700;
     letter-spacing: 0.01em;
     display: inline-flex;
     align-items: center;
@@ -226,22 +226,22 @@ body {
     width: 8px;
     height: 8px;
     border-radius: 50%;
-    background-color: var(--teal-500);
-    box-shadow: 0 0 0 rgba(6, 182, 212, 0.7);
-    animation: pulseTeal 2s infinite;
+    background-color: #1ED760;
+    box-shadow: 0 0 0 rgba(30, 215, 96, 0.7);
+    animation: pulseGreen 2s infinite;
 }
 
-@keyframes pulseTeal {
+@keyframes pulseGreen {
     0% {
-        box-shadow: 0 0 0 0 rgba(6, 182, 212, 0.7);
+        box-shadow: 0 0 0 0 rgba(30, 215, 96, 0.7);
     }
 
     70% {
-        box-shadow: 0 0 0 8px rgba(6, 182, 212, 0);
+        box-shadow: 0 0 0 8px rgba(30, 215, 96, 0);
     }
 
     100% {
-        box-shadow: 0 0 0 0 rgba(6, 182, 212, 0);
+        box-shadow: 0 0 0 0 rgba(30, 215, 96, 0);
     }
 }
 
@@ -569,9 +569,9 @@ body {
    ========================================================================== */
 
 .live-ticker-strip {
-    background: linear-gradient(90deg, #070B14 0%, #0F172A 50%, #070B14 100%);
-    border-top: 1px solid rgba(6, 182, 212, 0.25);
-    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+    background-color: #181818 !important;
+    border-top: 1px solid rgba(255, 255, 255, 0.08) !important;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08) !important;
     padding: 0.85rem 0;
     font-size: 0.835rem;
     text-align: center;
@@ -582,19 +582,19 @@ body {
    ========================================================================== */
 
 .section-architecture {
-    background: #0B1120;
+    background-color: #121212 !important;
     position: relative;
     padding: 6rem 0;
-    border-top: 1px solid rgba(255, 255, 255, 0.06);
-    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+    border-top: 1px solid rgba(255, 255, 255, 0.08) !important;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08) !important;
 }
 
 .section-tag {
-    color: var(--teal-500);
+    color: #1ED760;
     font-size: 0.825rem;
     font-weight: 700;
     text-transform: uppercase;
-    letter-spacing: 0.1em;
+    letter-spacing: 0.12em;
     margin-bottom: 0.6rem;
     display: block;
 }
@@ -608,7 +608,7 @@ body {
 }
 
 .section-subtext {
-    color: #94A3B8;
+    color: #A7A7A7;
     font-size: 1.05rem;
     max-width: 680px;
     margin: 0 auto 3.5rem auto;
@@ -616,21 +616,23 @@ body {
 }
 
 .arch-card {
-    background: linear-gradient(180deg, rgba(30, 41, 59, 0.8) 0%, rgba(15, 23, 42, 0.95) 100%);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    border-radius: 20px;
+    background-color: #282828 !important;
+    border: 1px solid rgba(255, 255, 255, 0.08) !important;
+    border-radius: 18px;
     padding: 2.25rem 2rem;
     height: 100%;
     display: flex;
     flex-direction: column;
-    box-shadow: 0 16px 36px -10px rgba(0, 0, 0, 0.5);
+    box-shadow: 0 16px 36px -10px rgba(0, 0, 0, 0.6);
     transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
     position: relative;
 }
 
 .arch-card:hover {
-    transform: translateY(-6px);
-    box-shadow: 0 20px 35px -10px rgba(0, 0, 0, 0.6);
+    background-color: #323232 !important;
+    transform: translateY(-5px);
+    box-shadow: 0 22px 45px -10px rgba(0, 0, 0, 0.75);
+    border-color: rgba(255, 255, 255, 0.14) !important;
 }
 
 .icon-wrapper-circle {
@@ -645,24 +647,21 @@ body {
 }
 
 .icon-blue {
-    background: rgba(59, 130, 246, 0.12);
+    background: rgba(96, 165, 250, 0.12);
     color: #60A5FA;
-    border: 1px solid rgba(59, 130, 246, 0.25);
-    box-shadow: 0 0 20px rgba(59, 130, 246, 0.2);
+    border: 1px solid rgba(96, 165, 250, 0.25);
 }
 
 .icon-green {
-    background: rgba(16, 185, 129, 0.12);
-    color: #34D399;
-    border: 1px solid rgba(16, 185, 129, 0.25);
-    box-shadow: 0 0 20px rgba(16, 185, 129, 0.2);
+    background: rgba(30, 215, 96, 0.14);
+    color: #1ED760;
+    border: 1px solid rgba(30, 215, 96, 0.28);
 }
 
 .icon-red {
-    background: rgba(239, 68, 68, 0.12);
+    background: rgba(248, 113, 113, 0.12);
     color: #F87171;
-    border: 1px solid rgba(239, 68, 68, 0.25);
-    box-shadow: 0 0 20px rgba(239, 68, 68, 0.2);
+    border: 1px solid rgba(248, 113, 113, 0.25);
 }
 
 .arch-card-title {
@@ -674,7 +673,7 @@ body {
 }
 
 .arch-card-desc {
-    color: #94A3B8;
+    color: #A7A7A7;
     font-size: 0.935rem;
     line-height: 1.65;
     margin-bottom: 1.6rem;
@@ -689,35 +688,44 @@ body {
 }
 
 .arch-pill-item {
-    background: rgba(15, 23, 42, 0.8);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    color: #CBD5E1;
+    background-color: #181818 !important;
+    border: 1px solid rgba(255, 255, 255, 0.08) !important;
+    color: #E5E5E5 !important;
     font-size: 0.775rem;
-    font-weight: 500;
-    padding: 0.35rem 0.75rem;
-    border-radius: 6px;
+    font-weight: 600;
+    padding: 0.4rem 0.85rem;
+    border-radius: 500px !important;
+    transition: background-color 0.2s ease, border-color 0.2s ease;
+}
+
+.arch-pill-item:hover {
+    background-color: #222222 !important;
+    border-color: rgba(255, 255, 255, 0.15) !important;
 }
 
 .btn-launch-assessment {
-    background: linear-gradient(135deg, #0891B2 0%, #06B6D4 100%);
-    color: #FFFFFF !important;
-    font-weight: 700;
-    font-size: 1.075rem;
-    padding: 1.15rem 2.85rem;
-    border-radius: 50rem;
-    border: 1px solid rgba(255, 255, 255, 0.25);
-    box-shadow: 0 10px 35px rgba(6, 182, 212, 0.5), 0 0 20px rgba(6, 182, 212, 0.25);
-    transition: all 0.3s ease;
+    background-color: #F8F9FA !important;
+    color: #000000 !important;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    font-weight: 800;
+    font-size: 1.05rem;
+    padding: 1.1rem 2.85rem;
+    border-radius: 500px !important;
+    border: none !important;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.45);
+    transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
     display: inline-flex;
     align-items: center;
     gap: 0.65rem;
     text-decoration: none;
+    letter-spacing: 0.01em;
 }
 
 .btn-launch-assessment:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 14px 40px rgba(6, 182, 212, 0.65);
-    color: #FFFFFF;
+    background-color: #FFFFFF !important;
+    color: #000000 !important;
+    transform: scale(1.04);
+    box-shadow: 0 8px 30px rgba(255, 255, 255, 0.25);
 }
 
 /* ==========================================================================
@@ -831,9 +839,9 @@ body {
 .btn-theme-toggle {
     width: 38px;
     height: 38px;
-    border-radius: 10px;
-    background: rgba(255, 255, 255, 0.08);
-    border: 1px solid rgba(255, 255, 255, 0.18);
+    border-radius: 500px;
+    background: #282828 !important;
+    border: 1px solid rgba(255, 255, 255, 0.12) !important;
     color: #F8FAFC;
     display: inline-flex;
     align-items: center;
@@ -845,9 +853,9 @@ body {
 }
 
 .btn-theme-toggle:hover {
-    background: rgba(255, 255, 255, 0.18);
-    border-color: var(--teal-500);
-    color: var(--teal-500);
+    background: #323232 !important;
+    border-color: #1ED760 !important;
+    color: #1ED760 !important;
     transform: scale(1.06);
 }
 
@@ -949,4 +957,55 @@ body.light-theme .arch-pill-item {
     background: #F1F5F9 !important;
     border-color: rgba(0, 0, 0, 0.06) !important;
     color: #334155 !important;
+}
+
+body.light-theme .navbar-govtech {
+    background: rgba(255, 255, 255, 0.95) !important;
+    border-bottom: 1px solid rgba(15, 23, 42, 0.08) !important;
+}
+
+body.light-theme .brand-logo {
+    color: #0F172A !important;
+}
+
+body.light-theme .nav-link-gov {
+    color: #64748B !important;
+}
+
+body.light-theme .nav-link-gov:hover {
+    color: #0F172A !important;
+    background: rgba(15, 23, 42, 0.06) !important;
+}
+
+body.light-theme .nav-link-gov.active {
+    color: #0F172A !important;
+    background: #E2E8F0 !important;
+}
+
+body.light-theme .status-badge-engine {
+    background: #F1F5F9 !important;
+    border-color: rgba(15, 23, 42, 0.1) !important;
+    color: #0F172A !important;
+}
+
+body.light-theme .btn-launch-assessment {
+    background-color: #0F172A !important;
+    color: #FFFFFF !important;
+}
+
+body.light-theme .btn-launch-assessment:hover {
+    background-color: #1E293B !important;
+    color: #FFFFFF !important;
+}
+
+body.light-theme .btn-theme-toggle {
+    background: #F1F5F9 !important;
+    border-color: rgba(15, 23, 42, 0.15) !important;
+    color: #0F172A !important;
+}
+
+body.light-theme .btn-theme-toggle:hover {
+    background: #E2E8F0 !important;
+    color: #0F172A !important;
+    border-color: #0F172A !important;
 }
