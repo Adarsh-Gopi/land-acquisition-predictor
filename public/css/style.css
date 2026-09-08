@@ -393,11 +393,13 @@ body {
    ========================================================================== */
 
 .glass-monitor-card {
-    background-color: #121212 !important;
-    border: 1px solid rgba(255, 255, 255, 0.14) !important;
+    background: linear-gradient(135deg, rgba(38, 38, 44, 0.65) 0%, rgba(18, 18, 22, 0.72) 100%) !important;
+    backdrop-filter: blur(20px) saturate(180%);
+    -webkit-backdrop-filter: blur(20px) saturate(180%);
+    border: 1px solid rgba(255, 255, 255, 0.15) !important;
     border-radius: 20px;
     padding: 2rem;
-    box-shadow: 0 25px 60px -15px rgba(0, 0, 0, 0.85);
+    box-shadow: 0 30px 60px -15px rgba(0, 0, 0, 0.65), inset 0 1px 0 rgba(255, 255, 255, 0.15);
     position: relative;
     overflow: hidden;
 }
@@ -464,8 +466,10 @@ body {
 }
 
 .metric-box {
-    background-color: #282828 !important;
-    border: 1px solid rgba(255, 255, 255, 0.08) !important;
+    background: rgba(255, 255, 255, 0.06) !important;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1) !important;
     border-radius: 14px;
     padding: 1.25rem 1.15rem;
     transition: transform 0.2s ease, background-color 0.2s ease, border-color 0.2s ease;
@@ -473,9 +477,9 @@ body {
 }
 
 .metric-box:hover {
-    background-color: #323232 !important;
+    background: rgba(255, 255, 255, 0.1) !important;
     transform: translateY(-2px);
-    border-color: rgba(255, 255, 255, 0.14) !important;
+    border-color: rgba(255, 255, 255, 0.2) !important;
 }
 
 .metric-box-title {
@@ -530,8 +534,10 @@ body {
 }
 
 .monitor-card-footer {
-    background-color: #282828 !important;
-    border: 1px solid rgba(255, 255, 255, 0.08) !important;
+    background: rgba(255, 255, 255, 0.06) !important;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1) !important;
     border-radius: 14px;
     padding: 0.95rem 1.15rem;
     display: flex;
