@@ -3,12 +3,12 @@
    GovTech / Enterprise Dark Slate + Precision Cyan / Emerald
    ========================================================================== */
 
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Comic+Relief&family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap');
 
 :root {
-    --bs-font-sans-serif: "Circular", "Helvetica Neue", Arial, sans-serif !important;
-    --bs-body-font-family: "Circular", "Helvetica Neue", Arial, sans-serif !important;
-    --font-main: "Circular", "Helvetica Neue", Arial, sans-serif;
+    --bs-font-sans-serif: 'Comic Relief', cursive, sans-serif !important;
+    --bs-body-font-family: 'Comic Relief', cursive, sans-serif !important;
+    --font-main: 'Comic Relief', cursive, sans-serif;
 
     --navy-primary: #0F172A;
     --navy-secondary: #1E293B;
@@ -35,8 +35,8 @@
     box-sizing: border-box;
 }
 
-body, button, input, select, textarea, h1, h2, h3, h4, h5, h6, .btn, .badge, .card, .navbar {
-    font-family: "Circular", "Helvetica Neue", Arial, sans-serif !important;
+body, button, input, select, textarea, h1, h2, h3, h4, h5, h6, .btn, .badge, .card, .navbar, a, p, span, div {
+    font-family: 'Comic Relief', cursive, sans-serif !important;
 }
 
 body {
@@ -165,7 +165,7 @@ body {
 .brand-logo {
     font-size: 1.35rem;
     font-weight: 800;
-    letter-spacing: -0.02em;
+    letter-spacing: normal;
     color: #FFFFFF;
     text-decoration: none;
     display: flex;
@@ -293,8 +293,8 @@ body {
 .hero-h1 {
     font-size: clamp(2.3rem, 4.2vw, 3.6rem);
     font-weight: 800;
-    line-height: 1.15;
-    letter-spacing: -0.03em;
+    line-height: 1.25;
+    letter-spacing: normal;
     color: #FFFFFF;
     margin-bottom: 1.4rem;
     text-shadow: 0 2px 14px rgba(0, 0, 0, 0.8);
@@ -418,7 +418,7 @@ body {
     display: flex;
     align-items: center;
     gap: 0.6rem;
-    letter-spacing: -0.01em;
+    letter-spacing: normal;
 }
 
 .live-pulse-badge {
@@ -486,15 +486,15 @@ body {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    letter-spacing: -0.01em;
+    letter-spacing: normal;
 }
 
 .metric-box-val {
-    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    font-family: 'Comic Relief', cursive, sans-serif !important;
     font-size: 2.15rem;
     font-weight: 800;
-    line-height: 1;
-    letter-spacing: -0.03em;
+    line-height: 1.1;
+    letter-spacing: normal;
     color: #FFFFFF !important;
 }
 
@@ -542,13 +542,13 @@ body {
 .accuracy-pill {
     background-color: #FFFFFF !important;
     color: #000000 !important;
-    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-    font-size: 0.82rem;
+    font-family: 'Comic Relief', cursive, sans-serif !important;
+    font-size: 0.85rem;
     font-weight: 800 !important;
     padding: 0.5rem 1.15rem;
     border-radius: 500px !important;
     border: none !important;
-    letter-spacing: 0.01em;
+    letter-spacing: normal;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.35);
     transition: transform 0.2s ease, background-color 0.2s ease, box-shadow 0.2s ease;
     cursor: pointer;
@@ -603,7 +603,7 @@ body {
     font-size: clamp(2rem, 3.2vw, 2.75rem);
     font-weight: 800;
     color: #FFFFFF;
-    letter-spacing: -0.02em;
+    letter-spacing: normal;
     margin-bottom: 1rem;
 }
 
@@ -669,7 +669,7 @@ body {
     font-weight: 700;
     color: #FFFFFF;
     margin-bottom: 0.85rem;
-    letter-spacing: -0.01em;
+    letter-spacing: normal;
 }
 
 .arch-card-desc {
@@ -706,7 +706,7 @@ body {
 .btn-launch-assessment {
     background-color: #F8F9FA !important;
     color: #000000 !important;
-    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    font-family: 'Comic Relief', cursive, sans-serif !important;
     font-weight: 800;
     font-size: 1.05rem;
     padding: 1.1rem 2.85rem;
@@ -718,7 +718,7 @@ body {
     align-items: center;
     gap: 0.65rem;
     text-decoration: none;
-    letter-spacing: 0.01em;
+    letter-spacing: normal;
 }
 
 .btn-launch-assessment:hover {
