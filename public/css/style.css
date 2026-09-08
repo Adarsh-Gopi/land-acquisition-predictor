@@ -187,6 +187,20 @@ body {
     font-size: 1.15rem;
 }
 
+.brand-logo-img {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    object-fit: contain;
+    background-color: transparent;
+    filter: drop-shadow(0 2px 8px rgba(6, 182, 212, 0.4));
+    transition: transform 0.2s ease;
+}
+
+.brand-logo-img:hover {
+    transform: scale(1.06);
+}
+
 .nav-link-gov {
     color: #B3B3B3 !important;
     font-weight: 600;
