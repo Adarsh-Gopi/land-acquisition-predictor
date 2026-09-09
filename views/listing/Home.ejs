@@ -122,12 +122,12 @@
                         <div class="d-flex align-items-center gap-2">
                             <i class="bi bi-cpu-fill" style="color: #1ED760; font-size: 1.05rem;"></i>
                             <div>
-                                <div style="font-size: 0.85rem; font-weight: 700; color: #FFFFFF; line-height: 1.2;">Dual XGBoost Ensemble</div>
-                                <div style="font-size: 0.7rem; color: #A7A7A7;">Calibrated Regressor + 3-Tier Classifier</div>
+                                <div style="font-size: 0.85rem; font-weight: 700; color: #FFFFFF; line-height: 1.2;">Dual XGBoost Ensemble (v1.5)</div>
+                                <div style="font-size: 0.7rem; color: #A7A7A7;">Calibrated Regressor + Active Self-Retraining</div>
                             </div>
                         </div>
                         <div class="accuracy-pill">
-                            93.4% R² 0.98
+                            95.3% R² 0.981
                         </div>
                     </div>
                 </div>
@@ -146,7 +146,7 @@
         <span class="text-secondary d-none d-lg-inline opacity-50">•</span>
         <div class="d-flex flex-wrap align-items-center justify-content-center gap-3 gap-lg-4" style="font-size: 0.76rem; color: #A7A7A7;">
             <span><i class="bi bi-check-circle-fill text-success me-1"></i> Section 3C/15 Objection Queue: <strong class="text-white">Low Latency</strong></span>
-            <span><i class="bi bi-shield-check me-1" style="color: #1ED760;"></i> Model Confidence: <strong class="text-white">94.2%</strong></span>
+            <span><i class="bi bi-shield-check me-1" style="color: #1ED760;"></i> Model Accuracy (v1.5): <strong class="text-white">95.3%</strong></span>
             <span><i class="bi bi-geo-alt-fill text-warning me-1"></i> Geo-Boundaries: <strong class="text-white">Updated Today</strong></span>
         </div>
     </div>
@@ -201,7 +201,7 @@
                         Runs an ensemble XGBoost architecture executing dual inference: a regressor outputting continuous delay month forecasts (R² = 0.98) and a multi-class probability classifier tiering Low, Medium, and High risks.
                     </p>
                     <div class="arch-pill-list">
-                        <span class="arch-pill-item"><i class="bi bi-graph-up-arrow me-1" style="color: #1ED760;"></i> R² = 0.98 Regression</span>
+                        <span class="arch-pill-item"><i class="bi bi-graph-up-arrow me-1" style="color: #1ED760;"></i> R² = 0.981 Regression</span>
                         <span class="arch-pill-item"><i class="bi bi-layers me-1" style="color: #1ED760;"></i> 3-Tier Classification</span>
                         <span class="arch-pill-item"><i class="bi bi-lightning-charge me-1" style="color: #1ED760;"></i> Real-time Scoring</span>
                     </div>

@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const Case = require('../database/Case');
-const { predictDelay } = require('../services/mlService');
+const { predictDelay, checkRetrain, getRetrainStatus } = require('../services/mlService');
 
 // In-memory fallback if MongoDB is not yet running
 let memoryCases = [];
@@ -102,6 +102,11 @@ router.post('/predict', async (req, res) => {
         try {
             const savedRecord = await Case.create(fullCase);
             fullCase._id = savedRecord._id;
+            
+            // Asynchronous threshold trigger for continuous self-retraining (e.g. at 500 cases)
+            Case.countDocuments()
+                .then(totalCount => checkRetrain(totalCount))
+                .catch(err => console.warn('Retrain trigger check error:', err.message));
         } catch (dbErr) {
             console.warn('Saved to in-memory history:', dbErr.message);
             fullCase._id = `mem-${Date.now()}`;
@@ -281,6 +286,7 @@ router.get('/dashboard', async (req, res) => {
         };
 
         const highRiskCases = allCases.filter(c => c.risk_level === 'High').slice(0, 8);
+        const retrainStatus = await getRetrainStatus();
 
         res.render('listing/dashboard', {
             title: 'Analytics Dashboard',
@@ -291,6 +297,7 @@ router.get('/dashboard', async (req, res) => {
             milestoneData,
             factorChartData,
             highRiskCases,
+            retrainStatus,
         });
     } catch (err) {
         console.error(err);
