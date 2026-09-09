@@ -1,98 +1,109 @@
 <% layout('layouts/boilerplate') %>
 
-<div class="container py-5">
-    
-    <div class="d-flex flex-wrap align-items-center justify-content-between mb-4 gap-3">
-        <div>
-            <h2 class="fw-bold text-navy mb-1"><i class="bi bi-clock-history text-teal me-2"></i> Land Acquisition Assessment History</h2>
-            <p class="text-muted mb-0">Review past project risk assessments and preventative action records.</p>
-        </div>
-        <a href="/predict" class="btn btn-teal fw-bold px-4 py-2 rounded-pill shadow-sm">
-            <i class="bi bi-plus-circle-fill me-1"></i> New Assessment
-        </a>
-    </div>
+    <div class="container py-5">
 
-    <% if (!cases || cases.length === 0) { %>
-        <!-- Empty State -->
-        <div class="card border-0 shadow-sm rounded-4 p-5 text-center my-5">
-            <div class="py-5">
-                <i class="bi bi-inbox text-muted display-1"></i>
-                <h4 class="fw-bold text-navy mt-3">No Past Records Found</h4>
-                <p class="text-muted mb-4">Start your first land acquisition risk evaluation to populate historical records.</p>
-                <a href="/predict" class="btn btn-teal px-4 py-2 fw-bold">Create First Assessment</a>
+        <div class="d-flex flex-wrap align-items-center justify-content-between mb-4 gap-3">
+            <div>
+                <h2 class="fw-bold text-navy mb-1"><i class="bi bi-clock-history text-teal me-2"></i> Land Acquisition
+                    Assessment History</h2>
+                <p class="text-muted mb-0">Review past project risk assessments and preventative action records.</p>
             </div>
+            <a href="/predict" class="btn btn-teal fw-bold px-4 py-2 rounded-pill shadow-sm">
+                <i class="bi bi-plus-circle-fill me-1"></i> New Assessment
+            </a>
         </div>
-    <% } else { %>
-        
-        <!-- Cards Grid -->
-        <div class="row g-4">
-            <% cases.forEach(function(item) { %>
-                <div class="col-md-6 col-lg-4">
-                    <div class="card h-100 border-0 shadow-sm rounded-4 overflow-hidden history-card position-relative">
-                        
-                        <!-- Top Accent Bar -->
-                        <div class="risk-bar <%= item.risk_level === 'High' ? 'bg-danger' : (item.risk_level === 'Medium' ? 'bg-warning' : 'bg-success') %>"></div>
-                        
-                        <div class="p-4 d-flex flex-column h-100">
-                            
-                            <!-- Header -->
-                            <div class="d-flex justify-content-between align-items-start mb-2">
-                                <span class="badge bg-light text-muted border"><%= item.case_id %></span>
-                                <span class="badge <%= item.risk_level === 'High' ? 'bg-danger' : (item.risk_level === 'Medium' ? 'bg-warning text-dark' : 'bg-success') %> px-3 py-1 rounded-pill fw-bold">
-                                    <%= item.risk_level %> Risk
-                                </span>
-                            </div>
 
-                            <h5 class="fw-bold text-navy mb-1 text-truncate" title="<%= item.project_name %>">
-                                <%= item.project_name %>
-                            </h5>
-                            
-                            <p class="small text-muted mb-3">
-                                <i class="bi bi-geo-alt me-1"></i> <%= item.state %> • Sector: <%= item.project_type %>
-                            </p>
-
-                            <!-- Metrics -->
-                            <div class="row g-2 p-2 rounded-3 bg-light mb-3 text-center small">
-                                <div class="col-6 border-end">
-                                    <span class="text-muted d-block">Delay Prob</span>
-                                    <strong class="<%= item.risk_level === 'High' ? 'text-danger' : (item.risk_level === 'Medium' ? 'text-warning-dark' : 'text-success') %> fs-6">
-                                        <%= item.delay_probability_percent %>
-                                    </strong>
-                                </div>
-                                <div class="col-6">
-                                    <span class="text-muted d-block">Land Area</span>
-                                    <strong class="text-dark fs-6"><%= item.land_area_acres %> Ac</strong>
-                                </div>
-                            </div>
-
-                            <!-- Key Factor Preview -->
-                            <div class="mb-3 small flex-grow-1">
-                                <span class="text-muted fw-semibold d-block mb-1">Key Bottleneck:</span>
-                                <% if (item.top_risk_factors && item.top_risk_factors.length > 0) { %>
-                                    <span class="text-danger"><i class="bi bi-exclamation-circle me-1"></i> <%= item.top_risk_factors[0] %></span>
-                                <% } else { %>
-                                    <span class="text-success"><i class="bi bi-check-circle me-1"></i> Normal administrative schedule</span>
-                                <% } %>
-                            </div>
-
-                            <!-- Action Buttons -->
-                            <div class="d-flex gap-2 pt-2 border-top mt-auto">
-                                <a href="/history/<%= item._id %>" class="btn btn-outline-primary btn-sm flex-grow-1 fw-semibold">
-                                    <i class="bi bi-eye me-1"></i> View Full Analysis
-                                </a>
-                                <form action="/history/<%= item._id %>/delete" method="POST" onsubmit="return confirm('Delete this assessment record?');">
-                                    <button type="submit" class="btn btn-outline-danger btn-sm" title="Delete">
-                                        <i class="bi bi-trash"></i>
-                                    </button>
-                                </form>
-                            </div>
-
-                        </div>
-                    </div>
+        <% if (!cases || cases.length===0) { %>
+            <!-- Empty State -->
+            <div class="card border-0 shadow-sm rounded-4 p-5 text-center my-5">
+                <div class="py-5">
+                    <i class="bi bi-inbox text-muted display-1"></i>
+                    <h4 class="fw-bold text-navy mt-3">No Past Records Found</h4>
+                    <p class="text-muted mb-4">Start your first land acquisition risk evaluation to populate historical
+                        records.</p>
+                    <a href="/predict" class="btn btn-teal px-4 py-2 fw-bold">Create First Assessment</a>
                 </div>
-            <% }); %>
-        </div>
+            </div>
+            <% } else { %>
 
-    <% } %>
+                <!-- Cards Grid -->
+                <div class="row g-4">
+                    <% cases.forEach(function(item) { %>
+                        <div class="col-md-6 col-lg-4">
+                            <div
+                                class="card h-100 border-0 shadow-sm rounded-4 overflow-hidden history-card position-relative">
+                                <div class="p-4 d-flex flex-column h-100">
 
-</div>
+                                    <!-- Header -->
+                                    <div class="d-flex justify-content-between align-items-start mb-2">
+                                        <span class="badge bg-light text-muted border">
+                                            <%= item.case_id %>
+                                        </span>
+                                        <span
+                                            class="badge <%= item.risk_level === 'High' ? 'bg-danger' : (item.risk_level === 'Medium' ? 'bg-warning text-dark' : 'bg-success') %> px-3 py-1 rounded-pill fw-bold">
+                                            <%= item.risk_level %> Risk
+                                        </span>
+                                    </div>
+
+                                    <h5 class="fw-bold text-navy mb-1 text-truncate" title="<%= item.project_name %>">
+                                        <%= item.project_name %>
+                                    </h5>
+
+                                    <p class="small text-muted mb-3">
+                                        <i class="bi bi-geo-alt me-1"></i>
+                                        <%= item.state %> • Sector: <%= item.project_type %>
+                                    </p>
+
+                                    <!-- Metrics -->
+                                    <div class="row g-2 p-2 rounded-3 bg-light mb-3 text-center small">
+                                        <div class="col-6 border-end">
+                                            <span class="text-muted d-block">Delay Prob</span>
+                                            <strong
+                                                class="<%= item.risk_level === 'High' ? 'text-danger' : (item.risk_level === 'Medium' ? 'text-warning-dark' : 'text-success') %> fs-6">
+                                                <%= item.delay_probability_percent %>
+                                            </strong>
+                                        </div>
+                                        <div class="col-6">
+                                            <span class="text-muted d-block">Land Area</span>
+                                            <strong class="text-dark fs-6">
+                                                <%= item.land_area_acres %> Ac
+                                            </strong>
+                                        </div>
+                                    </div>
+
+                                    <!-- Key Factor Preview -->
+                                    <div class="mb-3 small flex-grow-1">
+                                        <span class="text-muted fw-semibold d-block mb-1">Key Bottleneck:</span>
+                                        <% if (item.top_risk_factors && item.top_risk_factors.length> 0) { %>
+                                            <span class="text-danger"><i class="bi bi-exclamation-circle me-1"></i>
+                                                <%= item.top_risk_factors[0] %>
+                                            </span>
+                                            <% } else { %>
+                                                <span class="text-success"><i class="bi bi-check-circle me-1"></i>
+                                                    Normal administrative schedule</span>
+                                                <% } %>
+                                    </div>
+
+                                    <!-- Action Buttons -->
+                                    <div class="d-flex gap-2 pt-2 border-top mt-auto">
+                                        <a href="/history/<%= item._id %>"
+                                            class="btn btn-outline-primary btn-sm flex-grow-1 fw-semibold">
+                                            <i class="bi bi-eye me-1"></i> View Full Analysis
+                                        </a>
+                                        <form action="/history/<%= item._id %>/delete" method="POST"
+                                            onsubmit="return confirm('Delete this assessment record?');">
+                                            <button type="submit" class="btn btn-outline-danger btn-sm" title="Delete">
+                                                <i class="bi bi-trash"></i>
+                                            </button>
+                                        </form>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                        <% }); %>
+                </div>
+
+                <% } %>
+
+    </div>

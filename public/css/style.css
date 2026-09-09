@@ -35,17 +35,178 @@
     box-sizing: border-box;
 }
 
-body, button, input, select, textarea, h1, h2, h3, h4, h5, h6, .btn, .badge, .card, .navbar, a, p, span, div {
+body,
+button,
+input,
+select,
+textarea,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+.btn,
+.badge,
+.card,
+.navbar,
+a,
+p,
+span,
+div {
     font-family: 'Comic Relief', cursive, sans-serif !important;
 }
- 
+
 
 body {
-    color: #1e293b;
+    background-color: #121212 !important;
+    color: #E2E8F0;
     overflow-x: hidden;
     margin: 0;
     padding: 0;
     -webkit-font-smoothing: antialiased;
+}
+
+/* Spotify-style Dark Cards & Form Panels */
+.card {
+    background-color: #242424 !important;
+    border: 1px solid rgba(255, 255, 255, 0.08) !important;
+    color: #FFFFFF !important;
+    border-radius: 18px !important;
+    box-shadow: 0 16px 36px -10px rgba(0, 0, 0, 0.6) !important;
+}
+
+.card .border-bottom,
+.card .border-top {
+    border-color: rgba(255, 255, 255, 0.08) !important;
+}
+
+.card .text-navy,
+.text-navy {
+    color: #FFFFFF !important;
+}
+
+.form-label {
+    color: #E5E5E5 !important;
+    font-size: 0.88rem !important;
+    font-weight: 600 !important;
+    margin-bottom: 0.35rem !important;
+}
+
+.form-text,
+.text-muted {
+    color: #A7A7A7 !important;
+}
+
+.form-control,
+.form-select {
+    background-color: #181818 !important;
+    border: 1px solid rgba(255, 255, 255, 0.12) !important;
+    color: #FFFFFF !important;
+    border-radius: 12px !important;
+    padding: 0.7rem 1rem !important;
+    font-size: 0.925rem !important;
+    transition: all 0.2s ease !important;
+}
+
+.form-control:focus,
+.form-select:focus {
+    background-color: #1f1f1f !important;
+    border-color: #1ED760 !important;
+    color: #FFFFFF !important;
+    box-shadow: 0 0 0 3px rgba(30, 215, 96, 0.25) !important;
+}
+
+.form-control::placeholder {
+    color: #6B7280 !important;
+}
+
+.form-select option {
+    background-color: #181818 !important;
+    color: #FFFFFF !important;
+}
+
+/* ==========================================================================
+   Tables & Data Grid (Dark Light-Grey Aesthetic)
+   ========================================================================== */
+
+.table {
+    color: #E2E8F0 !important;
+    border-color: rgba(255, 255, 255, 0.08) !important;
+    background-color: transparent !important;
+    --bs-table-bg: transparent !important;
+    --bs-table-hover-bg: rgba(255, 255, 255, 0.04) !important;
+}
+
+.table > :not(caption) > * > * {
+    background-color: transparent !important;
+    border-bottom-color: rgba(255, 255, 255, 0.06) !important;
+    color: #CBD5E1 !important;
+    padding: 0.85rem 0.75rem !important;
+}
+
+.table thead,
+.table-light,
+.table thead th,
+.table-light th {
+    background-color: #1E1E1E !important;
+    color: #94A3B8 !important;
+    font-size: 0.8rem !important;
+    font-weight: 700 !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.05em !important;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1) !important;
+}
+
+.table tbody tr:hover td {
+    background-color: rgba(255, 255, 255, 0.04) !important;
+    color: #FFFFFF !important;
+}
+
+.table td.fw-semibold {
+    color: #FFFFFF !important;
+}
+
+.badge.bg-light,
+.badge.bg-light.border {
+    background-color: #1E1E1E !important;
+    color: #CBD5E1 !important;
+    border: 1px solid rgba(255, 255, 255, 0.12) !important;
+    font-weight: 600 !important;
+    border-radius: 6px !important;
+}
+
+.bg-light {
+    background-color: #1E1E1E !important;
+    color: #CBD5E1 !important;
+}
+
+.badge.bg-danger-subtle {
+    background-color: rgba(239, 68, 68, 0.15) !important;
+    color: #F87171 !important;
+    border: 1px solid rgba(239, 68, 68, 0.25) !important;
+}
+
+.badge.bg-warning-subtle {
+    background-color: rgba(245, 158, 11, 0.15) !important;
+    color: #FBBF24 !important;
+    border: 1px solid rgba(245, 158, 11, 0.25) !important;
+}
+
+.badge.bg-success-subtle {
+    background-color: rgba(16, 185, 129, 0.15) !important;
+    color: #34D399 !important;
+    border: 1px solid rgba(16, 185, 129, 0.25) !important;
+}
+
+.list-group {
+    background-color: transparent !important;
+}
+
+.list-group-item {
+    background-color: transparent !important;
+    color: #FFFFFF !important;
+    border-color: rgba(255, 255, 255, 0.08) !important;
 }
 
 /* ==========================================================================
@@ -64,10 +225,6 @@ body {
     background-color: var(--navy-light) !important;
 }
 
-.text-navy {
-    color: var(--navy-primary) !important;
-}
-
 .text-teal {
     color: var(--teal-accent) !important;
 }
@@ -81,16 +238,69 @@ body {
 }
 
 .btn-teal {
-    background-color: var(--teal-accent);
-    color: #0F172A;
-    border: none;
-    font-weight: 600;
-    transition: all 0.2s ease;
+    background-color: #FFFFFF !important;
+    color: #000000 !important;
+    border: none !important;
+    font-weight: 800 !important;
+    border-radius: 500px !important;
+    padding: 0.85rem 2.25rem !important;
+    letter-spacing: normal !important;
+    box-shadow: 0 4px 18px rgba(0, 0, 0, 0.45) !important;
+    transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1) !important;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
 }
 
 .btn-teal:hover {
-    background-color: var(--teal-dark);
-    color: #ffffff;
+    background-color: #1ED760 !important;
+    color: #000000 !important;
+    transform: scale(1.03) !important;
+    box-shadow: 0 6px 22px rgba(30, 215, 96, 0.4) !important;
+}
+
+.btn-outline-secondary {
+    background: rgba(255, 255, 255, 0.06) !important;
+    color: #E5E5E5 !important;
+    border: 1px solid rgba(255, 255, 255, 0.15) !important;
+    border-radius: 500px !important;
+    padding: 0.4rem 1rem !important;
+    font-size: 0.85rem !important;
+    font-weight: 600 !important;
+    transition: all 0.2s ease !important;
+}
+
+.btn-outline-secondary:hover {
+    background: rgba(255, 255, 255, 0.15) !important;
+    color: #FFFFFF !important;
+    border-color: rgba(255, 255, 255, 0.35) !important;
+    transform: translateY(-1px);
+}
+
+.btn-gis-pill {
+    background: rgba(255, 255, 255, 0.06) !important;
+    color: #FFFFFF !important;
+    border: 1px solid rgba(255, 255, 255, 0.18) !important;
+    border-radius: 500px !important;
+    padding: 0.5rem 1.15rem !important;
+    font-size: 0.875rem !important;
+    font-weight: 700 !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 0.45rem !important;
+    text-decoration: none !important;
+    transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1) !important;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25) !important;
+}
+
+.btn-gis-pill:hover {
+    background: rgba(30, 215, 96, 0.15) !important;
+    border-color: #1ED760 !important;
+    color: #1ED760 !important;
+    transform: translateY(-2px) !important;
+    box-shadow: 0 4px 14px rgba(30, 215, 96, 0.3) !important;
 }
 
 .btn-navy {
@@ -146,8 +356,7 @@ body {
 }
 
 .risk-bar {
-    height: 6px;
-    width: 100%;
+    display: none !important;
 }
 
 /* ==========================================================================
@@ -155,7 +364,7 @@ body {
    ========================================================================== */
 
 .navbar-govtech {
-    background-color: #121212 !important;
+    background-color: #282828 !important;
     backdrop-filter: blur(16px);
     -webkit-backdrop-filter: blur(16px);
     border-bottom: 1px solid rgba(255, 255, 255, 0.08) !important;
@@ -183,7 +392,7 @@ body {
     align-items: center;
     justify-content: center;
     border-radius: 10px;
-    box-shadow: 0 4px 14px rgba(30, 215, 96, 0.35);
+    /* box-shadow: 0 4px 14px rgba(30, 215, 96, 0.35); */
     font-size: 1.15rem;
 }
 
@@ -193,7 +402,7 @@ body {
     border-radius: 50%;
     object-fit: contain;
     background-color: transparent;
-    filter: drop-shadow(0 2px 8px rgba(6, 182, 212, 0.4));
+    /* filter: drop-shadow(0 2px 8px rgba(6, 182, 212, 0.4)); */
     transition: transform 0.2s ease;
 }
 
@@ -755,59 +964,69 @@ body {
    ========================================================================== */
 
 .footer-govtech {
-    background: #090D16;
-    border-top: 1px solid rgba(255, 255, 255, 0.08);
-    padding: 4rem 0 2.5rem 0;
+    background: #282828 !important;
+    border-top: 1px solid rgba(255, 255, 255, 0.08) !important;
+    padding: 1.75rem 0 1.25rem 0;
     color: #94A3B8;
 }
 
+.footer-logo-img {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    object-fit: contain;
+    background-color: transparent;
+    flex-shrink: 0;
+}
+
 .footer-title {
-    font-size: 1.15rem;
+    font-size: 0.975rem;
     font-weight: 700;
     color: #FFFFFF;
-    margin-bottom: 0.4rem;
+    margin-bottom: 0.15rem;
 }
 
 .footer-subtitle {
-    font-size: 0.925rem;
-    color: #64748B;
-    margin-bottom: 1.5rem;
+    font-size: 0.8rem;
+    color: #8E8E8E;
+    margin-bottom: 0;
 }
 
 .tech-stack-badges {
     display: flex;
     flex-wrap: wrap;
-    gap: 0.65rem;
+    gap: 0.5rem;
     align-items: center;
 }
 
 .tech-badge {
-    background: rgba(30, 41, 59, 0.7);
+    background: rgba(255, 255, 255, 0.05);
     border: 1px solid rgba(255, 255, 255, 0.08);
     color: #CBD5E1;
-    font-size: 0.8rem;
+    font-size: 0.75rem;
     font-weight: 600;
-    padding: 0.4rem 0.85rem;
-    border-radius: 8px;
+    padding: 0.25rem 0.65rem;
+    border-radius: 500px;
     display: inline-flex;
     align-items: center;
-    gap: 0.45rem;
+    gap: 0.35rem;
 }
 
 .tech-badge i {
-    color: var(--teal-500);
+    color: #1ED760;
+    font-size: 0.8rem;
 }
 
 .footer-bottom {
-    margin-top: 3rem;
-    padding-top: 1.5rem;
-    border-top: 1px solid rgba(255, 255, 255, 0.05);
+    margin-top: 1.25rem;
+    padding-top: 1rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.06);
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
     align-items: center;
-    font-size: 0.85rem;
-    color: #64748B;
+    font-size: 0.78rem;
+    color: #8E8E8E;
 }
 
 /* ==========================================================================
@@ -1030,4 +1249,122 @@ body.light-theme .btn-theme-toggle:hover {
     background: #E2E8F0 !important;
     color: #0F172A !important;
     border-color: #0F172A !important;
+}
+
+body.light-theme .footer-govtech {
+    background: #FFFFFF !important;
+    border-top: 1px solid rgba(0, 0, 0, 0.08) !important;
+    color: #64748B !important;
+}
+
+body.light-theme .footer-title {
+    color: #0F172A !important;
+}
+
+body.light-theme .footer-subtitle {
+    color: #64748B !important;
+}
+
+body.light-theme .card {
+    background-color: #FFFFFF !important;
+    border: 1px solid rgba(0, 0, 0, 0.08) !important;
+    color: #0F172A !important;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05) !important;
+}
+
+body.light-theme .card .text-navy,
+body.light-theme .text-navy {
+    color: #0F172A !important;
+}
+
+body.light-theme .card .border-bottom,
+body.light-theme .card .border-top {
+    border-color: #E2E8F0 !important;
+}
+
+body.light-theme .form-control,
+body.light-theme .form-select {
+    background-color: #FFFFFF !important;
+    border: 1px solid #CBD5E1 !important;
+    color: #0F172A !important;
+}
+
+body.light-theme .form-control:focus,
+body.light-theme .form-select:focus {
+    background-color: #FFFFFF !important;
+    border-color: #0891B2 !important;
+    color: #0F172A !important;
+    box-shadow: 0 0 0 3px rgba(8, 145, 178, 0.2) !important;
+}
+
+body.light-theme .form-control::placeholder {
+    color: #94A3B8 !important;
+}
+
+body.light-theme .form-select option {
+    background-color: #FFFFFF !important;
+    color: #0F172A !important;
+}
+
+body.light-theme .form-label {
+    color: #334155 !important;
+}
+
+body.light-theme .form-text,
+body.light-theme .text-muted {
+    color: #64748B !important;
+}
+
+body.light-theme .btn-teal {
+    background-color: #0F172A !important;
+    color: #FFFFFF !important;
+    box-shadow: 0 4px 14px rgba(15, 23, 42, 0.25) !important;
+}
+
+body.light-theme .btn-teal:hover {
+    background-color: #1E293B !important;
+    color: #FFFFFF !important;
+    box-shadow: 0 6px 20px rgba(15, 23, 42, 0.35) !important;
+}
+
+body.light-theme .btn-gis-pill {
+    background: #FFFFFF !important;
+    color: #0F172A !important;
+    border: 1px solid #CBD5E1 !important;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05) !important;
+}
+
+body.light-theme .btn-gis-pill:hover {
+    background: #F1F5F9 !important;
+    border-color: #059669 !important;
+    color: #059669 !important;
+}
+
+body.light-theme .table {
+    color: #0F172A !important;
+}
+
+body.light-theme .table > :not(caption) > * > * {
+    color: #334155 !important;
+    border-bottom-color: #E2E8F0 !important;
+}
+
+body.light-theme .table thead,
+body.light-theme .table-light,
+body.light-theme .table thead th,
+body.light-theme .table-light th {
+    background-color: #F1F5F9 !important;
+    color: #475569 !important;
+    border-bottom: 1px solid #CBD5E1 !important;
+}
+
+body.light-theme .badge.bg-light {
+    background-color: #F1F5F9 !important;
+    color: #334155 !important;
+    border: 1px solid #CBD5E1 !important;
+}
+
+body.light-theme .bg-light {
+    background-color: #F8FAFC !important;
+    color: #334155 !important;
 }

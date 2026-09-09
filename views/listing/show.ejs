@@ -54,9 +54,9 @@ const progressWidth = Math.min(Math.max(Math.round(probVal * 100), 0), 100);
 <div class="container py-5">
 
     <% if (item.warning) { %>
-        <div class="alert alert-warning alert-dismissible fade show shadow-sm rounded-4 mb-4" role="alert">
-            <i class="bi bi-exclamation-circle-fill me-2"></i> <strong>Notice:</strong> <%= item.warning %>
-            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        <div class="alert alert-dismissible fade show shadow-sm rounded-4 mb-4" role="alert" style="background: rgba(245, 158, 11, 0.15); border: 1px solid rgba(245, 158, 11, 0.3); color: #FDE68A;">
+            <i class="bi bi-exclamation-circle-fill me-2 text-warning"></i> <strong>Notice:</strong> <%= item.warning %>
+            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="alert"></button>
         </div>
     <% } %>
 
@@ -65,18 +65,18 @@ const progressWidth = Math.min(Math.max(Math.round(probVal * 100), 0), 100);
         <div class="p-4 p-md-5 text-white <%= riskLevel === 'High' ? 'bg-gradient-danger' : (riskLevel === 'Medium' ? 'bg-gradient-warning text-dark' : 'bg-gradient-success') %>">
             <div class="row align-items-center">
                 <div class="col-md-8">
-                    <span class="badge bg-white text-dark px-3 py-2 rounded-pill fw-bold mb-2">
+                    <span class="badge px-3 py-2 rounded-pill fw-bold mb-2" style="background: #181818; color: #E2E8F0; border: 1px solid rgba(255,255,255,0.12);">
                         <i class="bi bi-folder2 me-1"></i> Case ID: <%= item.case_id || 'N/A' %>
                     </span>
-                    <h2 class="fw-extrabold mb-1"><%= item.project_name || 'Land Acquisition Project' %></h2>
-                    <p class="mb-0 opacity-75">
+                    <h2 class="fw-extrabold mb-1 text-white"><%= item.project_name || 'Land Acquisition Project' %></h2>
+                    <p class="mb-0" style="color: #E2E8F0; opacity: 0.9;">
                         <i class="bi bi-geo-alt me-1"></i> <%= item.state || 'N/A' %> (<%= item.district_type || 'N/A' %>) • Sector: <%= item.project_type || 'N/A' %> • Land: <%= item.land_area_acres || 0 %> Acres (<%= item.land_area_hectares || 0 %> Ha)
                     </p>
                 </div>
                 <div class="col-md-4 text-md-end mt-4 mt-md-0">
-                    <div class="d-inline-block bg-white text-dark p-3 p-md-4 rounded-4 shadow text-center">
-                        <span class="small text-muted text-uppercase fw-bold d-block">Assigned Risk Tier</span>
-                        <h2 class="fw-extrabold mb-0 <%= riskLevel === 'High' ? 'text-danger' : (riskLevel === 'Medium' ? 'text-warning-dark' : 'text-success') %>">
+                    <div class="d-inline-block p-3 p-md-4 rounded-4 text-center" style="background: #181818; border: 1px solid rgba(255, 255, 255, 0.12); box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);">
+                        <span class="small text-uppercase fw-bold d-block" style="color: #94A3B8;">Assigned Risk Tier</span>
+                        <h2 class="fw-extrabold mb-0 <%= riskLevel === 'High' ? 'text-danger' : (riskLevel === 'Medium' ? 'text-warning' : 'text-success') %>">
                             <%= riskLevel %> Risk
                         </h2>
                     </div>
@@ -84,20 +84,21 @@ const progressWidth = Math.min(Math.max(Math.round(probVal * 100), 0), 100);
             </div>
         </div>
 
-        <div class="p-4 bg-white border-top">
+        <div class="p-4 border-top" style="background: #1E1E1E; border-color: rgba(255, 255, 255, 0.08) !important;">
             <div class="row g-4 align-items-center">
-                <div class="col-md-4 text-center border-end">
-                    <span class="text-muted small fw-semibold text-uppercase">Delay Probability</span>
-                    <h1 class="fw-extrabold mb-1 <%= riskLevel === 'High' ? 'text-danger' : (riskLevel === 'Medium' ? 'text-warning-dark' : 'text-success') %>">
+                <div class="col-md-4 text-center border-end" style="border-color: rgba(255, 255, 255, 0.08) !important;">
+                    <span class="small fw-semibold text-uppercase" style="color: #94A3B8;">Delay Probability</span>
+                    <h1 class="fw-extrabold mb-1 <%= riskLevel === 'High' ? 'text-danger' : (riskLevel === 'Medium' ? 'text-warning' : 'text-success') %>">
                         <%= probPercent %>
                     </h1>
-                    <div class="progress mt-2" style="height: 10px;">
+                    <div class="progress mt-2" style="height: 10px; background-color: #121212; border: 1px solid rgba(255,255,255,0.06); border-radius: 999px;">
                         <div id="delayProgressBar"
                              class="progress-bar <%= riskLevel === 'High' ? 'bg-danger' : (riskLevel === 'Medium' ? 'bg-warning' : 'bg-success') %>" 
                              role="progressbar" 
                              aria-valuenow="<%= progressWidth %>" 
                              aria-valuemin="0" 
-                             aria-valuemax="100">
+                             aria-valuemax="100"
+                             style="border-radius: 999px;">
                         </div>
                     </div>
                     <script>
@@ -107,27 +108,27 @@ const progressWidth = Math.min(Math.max(Math.round(probVal * 100), 0), 100);
                         })();
                     </script>
                 </div>
-                <div class="col-md-4 text-center border-end">
-                    <span class="text-muted small fw-semibold text-uppercase">Probability Breakdown</span>
+                <div class="col-md-4 text-center border-end" style="border-color: rgba(255, 255, 255, 0.08) !important;">
+                    <span class="small fw-semibold text-uppercase" style="color: #94A3B8;">Probability Breakdown</span>
                     <div class="d-flex justify-content-center gap-3 mt-2">
                         <div>
-                            <span class="badge bg-success-subtle text-success">Low</span>
-                            <div class="fw-bold"><%= ((riskDist.low || 0) * 100).toFixed(1) %>%</div>
+                            <span class="badge" style="background: rgba(16, 185, 129, 0.15); color: #34D399; border: 1px solid rgba(16, 185, 129, 0.25);">Low</span>
+                            <div class="fw-bold text-white mt-1"><%= ((riskDist.low || 0) * 100).toFixed(1) %>%</div>
                         </div>
                         <div>
-                            <span class="badge bg-warning-subtle text-warning-dark">Medium</span>
-                            <div class="fw-bold"><%= ((riskDist.medium || 0) * 100).toFixed(1) %>%</div>
+                            <span class="badge" style="background: rgba(245, 158, 11, 0.15); color: #FBBF24; border: 1px solid rgba(245, 158, 11, 0.25);">Medium</span>
+                            <div class="fw-bold text-white mt-1"><%= ((riskDist.medium || 0) * 100).toFixed(1) %>%</div>
                         </div>
                         <div>
-                            <span class="badge bg-danger-subtle text-danger">High</span>
-                            <div class="fw-bold"><%= ((riskDist.high || 0) * 100).toFixed(1) %>%</div>
+                            <span class="badge" style="background: rgba(239, 68, 68, 0.15); color: #F87171; border: 1px solid rgba(239, 68, 68, 0.25);">High</span>
+                            <div class="fw-bold text-white mt-1"><%= ((riskDist.high || 0) * 100).toFixed(1) %>%</div>
                         </div>
                     </div>
                 </div>
                 <div class="col-md-4 text-center">
-                    <span class="text-muted small fw-semibold text-uppercase">Inference Latency</span>
-                    <h4 class="fw-bold text-navy mb-1"><%= item.processing_time_ms || 0 %> ms</h4>
-                    <span class="badge bg-light text-muted border">Sub-second Realtime</span>
+                    <span class="small fw-semibold text-uppercase" style="color: #94A3B8;">Inference Latency</span>
+                    <h4 class="fw-bold mb-1 text-white"><%= item.processing_time_ms || 0 %> ms</h4>
+                    <span class="badge px-3 py-1.5" style="background: #121212; color: #CBD5E1; border: 1px solid rgba(255, 255, 255, 0.1);">Sub-second Realtime</span>
                 </div>
             </div>
         </div>
@@ -140,16 +141,16 @@ const progressWidth = Math.min(Math.max(Math.round(probVal * 100), 0), 100);
         <div class="col-lg-7">
             <!-- Top Risk Factors -->
             <div class="card border-0 shadow-sm rounded-4 p-4 mb-4">
-                <h5 class="fw-bold text-navy mb-3"><i class="bi bi-exclamation-octagon-fill text-danger me-2"></i> Identified Critical Bottlenecks</h5>
+                <h5 class="fw-bold text-white mb-3"><i class="bi bi-exclamation-octagon-fill text-danger me-2"></i> Identified Critical Bottlenecks</h5>
                 <% if (factors.length > 0) { %>
-                    <ul class="list-group list-group-flush">
+                    <div class="d-flex flex-column gap-2">
                         <% factors.forEach(function(factor) { %>
-                            <li class="list-group-item px-0 py-2 d-flex align-items-center">
+                            <div class="d-flex align-items-center p-3 rounded-3" style="background: #181818; border: 1px solid rgba(255, 255, 255, 0.06);">
                                 <i class="bi bi-x-circle-fill text-danger me-2 fs-5"></i>
-                                <span class="fw-semibold text-dark"><%= factor %></span>
-                            </li>
+                                <span class="fw-semibold text-white"><%= factor %></span>
+                            </div>
                         <% }); %>
-                    </ul>
+                    </div>
                 <% } else { %>
                     <p class="text-muted mb-0">No severe bottleneck triggers identified.</p>
                 <% } %>
@@ -158,14 +159,14 @@ const progressWidth = Math.min(Math.max(Math.round(probVal * 100), 0), 100);
             <!-- SHAP Explainability Chart -->
             <% if (shapData.length > 0) { %>
             <div class="card border-0 shadow-sm rounded-4 p-4 mb-4">
-                <h5 class="fw-bold text-navy mb-1">
+                <h5 class="fw-bold text-white mb-1">
                     <i class="bi bi-diagram-3-fill text-primary me-2"></i> AI Explainability (SHAP)
                 </h5>
-                <p class="text-muted small mb-3">How much each feature contributes to the predicted delay probability — as learned by the XGBoost model.</p>
+                <p class="small mb-3" style="color: #94A3B8;">How much each feature contributes to the predicted delay probability — as learned by the XGBoost model.</p>
                 <div style="height: 260px;">
                     <canvas id="shapChart"></canvas>
                 </div>
-                <div class="d-flex gap-3 mt-2 small text-muted">
+                <div class="d-flex gap-3 mt-2 small" style="color: #CBD5E1;">
                     <span><span style="display:inline-block;width:12px;height:12px;background:#dc3545;border-radius:2px;margin-right:4px;"></span>Increases delay risk</span>
                     <span><span style="display:inline-block;width:12px;height:12px;background:#198754;border-radius:2px;margin-right:4px;"></span>Reduces delay risk</span>
                 </div>
@@ -173,14 +174,14 @@ const progressWidth = Math.min(Math.max(Math.round(probVal * 100), 0), 100);
             <% } %>
 
             <!-- Recommended Preventive Actions -->
-            <div class="card border-0 shadow-sm rounded-4 p-4 border-start border-4 border-teal">
-                <h5 class="fw-bold text-navy mb-3"><i class="bi bi-clipboard-check-fill text-teal me-2"></i> Recommended Officer Preventive Actions</h5>
+            <div class="card border-0 shadow-sm rounded-4 p-4" style="border-left: 4px solid #06B6D4 !important;">
+                <h5 class="fw-bold text-white mb-3"><i class="bi bi-clipboard-check-fill me-2" style="color: #06B6D4;"></i> Recommended Officer Preventive Actions</h5>
                 <% if (actions.length > 0) { %>
                     <div class="d-flex flex-column gap-3">
                         <% actions.forEach(function(action, idx) { %>
-                            <div class="d-flex align-items-start gap-3 p-3 rounded-3 bg-light">
-                                <span class="badge bg-teal text-navy rounded-circle px-2 py-1"><%= idx + 1 %></span>
-                                <span class="text-dark"><%= action %></span>
+                            <div class="d-flex align-items-start gap-3 p-3 rounded-3" style="background: #181818; border: 1px solid rgba(255, 255, 255, 0.06);">
+                                <span class="badge rounded-circle px-2 py-1" style="background: #06B6D4; color: #0F172A; font-weight: bold;"><%= idx + 1 %></span>
+                                <span style="color: #E2E8F0;"><%= action %></span>
                             </div>
                         <% }); %>
                     </div>
@@ -193,55 +194,55 @@ const progressWidth = Math.min(Math.max(Math.round(probVal * 100), 0), 100);
         <!-- Right: Case Parameter Snapshot -->
         <div class="col-lg-5">
             <div class="card border-0 shadow-sm rounded-4 p-4">
-                <h5 class="fw-bold text-navy mb-3"><i class="bi bi-info-circle-fill text-primary me-2"></i> Case Profile Summary</h5>
+                <h5 class="fw-bold text-white mb-3"><i class="bi bi-info-circle-fill text-primary me-2"></i> Case Profile Summary</h5>
                 <table class="table table-sm table-borderless mb-0">
                     <tbody>
-                        <tr>
-                            <td class="text-muted">Landowners Affected</td>
-                            <td class="fw-bold text-end"><%= item.affected_owner_count || 0 %> Owners</td>
+                        <tr style="border-bottom: 1px solid rgba(255,255,255,0.06);">
+                            <td class="py-2" style="color: #94A3B8;">Landowners Affected</td>
+                            <td class="fw-bold text-end py-2 text-white"><%= item.affected_owner_count || 0 %> Owners</td>
                         </tr>
-                        <tr>
-                            <td class="text-muted">Compensation Amount</td>
-                            <td class="fw-bold text-end">₹ <%= item.compensation_estimate_inr_lakh || 0 %> Lakhs</td>
+                        <tr style="border-bottom: 1px solid rgba(255,255,255,0.06);">
+                            <td class="py-2" style="color: #94A3B8;">Compensation Amount</td>
+                            <td class="fw-bold text-end py-2 text-white">₹ <%= item.compensation_estimate_inr_lakh || 0 %> Lakhs</td>
                         </tr>
-                        <tr>
-                            <td class="text-muted">Funding In Escrow</td>
-                            <td class="fw-bold text-end">
+                        <tr style="border-bottom: 1px solid rgba(255,255,255,0.06);">
+                            <td class="py-2" style="color: #94A3B8;">Funding In Escrow</td>
+                            <td class="fw-bold text-end py-2">
                                 <span class="badge <%= item.compensation_funding_available ? 'bg-success' : 'bg-danger' %>">
                                     <%= item.compensation_funding_available ? 'Available' : 'Pending' %>
                                 </span>
                             </td>
                         </tr>
-                        <tr>
-                            <td class="text-muted">Multi-Village Jurisdiction</td>
-                            <td class="fw-bold text-end"><%= item.is_multi_village ? 'Yes' : 'No' %></td>
+                        <tr style="border-bottom: 1px solid rgba(255,255,255,0.06);">
+                            <td class="py-2" style="color: #94A3B8;">Multi-Village Jurisdiction</td>
+                            <td class="fw-bold text-end py-2 text-white"><%= item.is_multi_village ? 'Yes' : 'No' %></td>
+                        </tr>
+                        <tr style="border-bottom: 1px solid rgba(255,255,255,0.06);">
+                            <td class="py-2" style="color: #94A3B8;">Current Notification</td>
+                            <td class="fw-bold text-end py-2 text-white"><%= item.notification_stage || 'N/A' %></td>
+                        </tr>
+                        <tr style="border-bottom: 1px solid rgba(255,255,255,0.06);">
+                            <td class="py-2" style="color: #94A3B8;">Days Elapsed</td>
+                            <td class="fw-bold text-end py-2 text-white"><%= item.days_since_case_opened || 0 %> Days</td>
+                        </tr>
+                        <tr style="border-bottom: 1px solid rgba(255,255,255,0.06);">
+                            <td class="py-2" style="color: #94A3B8;">Award Declared</td>
+                            <td class="fw-bold text-end py-2 text-white"><%= item.award_completed_percent || 0 %>%</td>
                         </tr>
                         <tr>
-                            <td class="text-muted">Current Notification</td>
-                            <td class="fw-bold text-end"><%= item.notification_stage || 'N/A' %></td>
-                        </tr>
-                        <tr>
-                            <td class="text-muted">Days Elapsed</td>
-                            <td class="fw-bold text-end"><%= item.days_since_case_opened || 0 %> Days</td>
-                        </tr>
-                        <tr>
-                            <td class="text-muted">Award Declared</td>
-                            <td class="fw-bold text-end"><%= item.award_completed_percent || 0 %>%</td>
-                        </tr>
-                        <tr>
-                            <td class="text-muted">Physical Possession</td>
-                            <td class="fw-bold text-end"><%= item.possession_completed_percent || 0 %>%</td>
+                            <td class="py-2" style="color: #94A3B8;">Physical Possession</td>
+                            <td class="fw-bold text-end py-2 text-white"><%= item.possession_completed_percent || 0 %>%</td>
                         </tr>
                     </tbody>
                 </table>
             </div>
 
             <!-- Bottom Navigation -->
-            <div class="d-flex gap-2 mt-4">
-                <a href="/predict" class="btn btn-teal flex-grow-1 py-2 fw-bold">
+            <div class="d-flex gap-3 mt-4">
+                <a href="/predict" class="btn btn-primary-pill flex-grow-1 py-2.5 fw-bold d-flex align-items-center justify-content-center gap-2">
                     <i class="bi bi-plus-circle me-1"></i> New Assessment
                 </a>
-                <a href="/history" class="btn btn-outline-secondary flex-grow-1 py-2 fw-semibold">
+                <a href="/history" class="btn flex-grow-1 py-2.5 fw-semibold d-flex align-items-center justify-content-center gap-2" style="background: #242424; color: #FFFFFF; border: 1px solid rgba(255,255,255,0.15); border-radius: 9999px;">
                     <i class="bi bi-card-list me-1"></i> View All History
                 </a>
             </div>
@@ -292,10 +293,16 @@ const progressWidth = Math.min(Math.max(Math.round(probVal * 100), 0), 100);
             },
             scales: {
                 x: {
-                    grid: { color: 'rgba(0,0,0,0.05)' },
-                    ticks: { callback: v => (v > 0 ? '+' : '') + (v * 100).toFixed(1) + '%' }
+                    grid: { color: 'rgba(255,255,255,0.08)' },
+                    ticks: { 
+                        color: '#94A3B8',
+                        callback: v => (v > 0 ? '+' : '') + (v * 100).toFixed(1) + '%' 
+                    }
                 },
-                y: { grid: { display: false } }
+                y: { 
+                    grid: { display: false },
+                    ticks: { color: '#CBD5E1' }
+                }
             }
         }
     });
