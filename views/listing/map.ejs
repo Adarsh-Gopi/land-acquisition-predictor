@@ -677,7 +677,7 @@
                             No assessed projects yet.<br>Click <strong>New Assessment</strong> to begin.
                         </div>
                     <% } else { %>
-                        <% casesList.slice(0, 30).forEach((c, idx) => { 
+                        <% casesList.slice(0, 50).forEach((c, idx) => { 
                             const borderClass = c.risk_level === 'High' ? 'border-high' : (c.risk_level === 'Medium' ? 'border-medium' : 'border-low');
                             const delayNum = c.delay_probability ? Math.round(c.delay_probability * 100) : (c.risk_level === 'High' ? 85 : (c.risk_level === 'Medium' ? 50 : 25));
                             const badgeClass = c.risk_level === 'High' ? 'badge-delay-high' : (c.risk_level === 'Medium' ? 'badge-delay-medium' : 'badge-delay-low');
@@ -898,21 +898,23 @@
 
     const markersGroup = L.featureGroup().addTo(map);
 
-    // 4. Render Markers with Delay Probability %
+    // 4. Render Markers with Delay Probability % (Showing Latest 50 Cases on Map)
     function renderMapMarkers() {
         markersGroup.clearLayers();
         markersMap = {};
         const stateCounts = {};
 
-        cases.forEach((c, idx) => {
+        // Filter and limit to latest 50 cases to prevent visual clustering
+        const filteredCases = activeFilter === 'ALL' 
+            ? cases 
+            : cases.filter(c => c && (c.risk_level === activeFilter));
+        const mapDisplayCases = filteredCases.slice(0, 50);
+
+        mapDisplayCases.forEach((c, idx) => {
             if (!c) return;
             const risk = (c.risk_level === 'High' || c.risk_level === 'Medium' || c.risk_level === 'Low') 
                 ? c.risk_level 
                 : 'Medium';
-
-            if (activeFilter !== 'ALL' && risk !== activeFilter) {
-                return;
-            }
 
             const stateName = c.state || 'India';
             const baseCoords = getStateCoordinates(stateName);
@@ -920,9 +922,11 @@
             if (!stateCounts[stateName]) stateCounts[stateName] = 0;
             const offsetIndex = stateCounts[stateName]++;
 
-            // Gentle deterministic jitter so multiple cases in same state don't stack directly
-            const jitterLat = baseCoords[0] + (Math.sin(offsetIndex * 1.5 + idx) * 0.7);
-            const jitterLng = baseCoords[1] + (Math.cos(offsetIndex * 1.5 + idx) * 0.7);
+            // Golden angle radial dispersion around state center
+            const angle = offsetIndex * 2.39996;
+            const radius = offsetIndex === 0 ? 0 : (0.28 * Math.sqrt(offsetIndex));
+            const jitterLat = baseCoords[0] + (radius * Math.cos(angle));
+            const jitterLng = baseCoords[1] + (radius * Math.sin(angle));
 
             const color = riskColors[risk] || '#D97706';
             const iconSymbol = riskIcons[risk] || '🟡';
