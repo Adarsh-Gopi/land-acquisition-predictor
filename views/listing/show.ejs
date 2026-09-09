@@ -49,6 +49,13 @@ const shapData = Array.isArray(item.shap_explanations) ? item.shap_explanations 
 const probPercent = item.delay_probability_percent || `${Math.round((item.delay_probability || 0) * 100)}%`;
 const probVal = typeof item.delay_probability === 'number' ? item.delay_probability : 0.5;
 const progressWidth = Math.min(Math.max(Math.round(probVal * 100), 0), 100);
+const progressWidthPercent = `${progressWidth}%`;
+
+const lowDistPercent = `${((riskDist.low || 0) * 100).toFixed(1)}%`;
+const medDistPercent = `${((riskDist.medium || 0) * 100).toFixed(1)}%`;
+const highDistPercent = `${((riskDist.high || 0) * 100).toFixed(1)}%`;
+const awardPercentStr = `${item.award_completed_percent || 0}%`;
+const possessionPercentStr = `${item.possession_completed_percent || 0}%`;
 %>
 
 <div class="container py-5">
@@ -98,30 +105,25 @@ const progressWidth = Math.min(Math.max(Math.round(probVal * 100), 0), 100);
                              aria-valuenow="<%= progressWidth %>" 
                              aria-valuemin="0" 
                              aria-valuemax="100"
+                             data-width="<%= progressWidth %>"
                              style="border-radius: 999px;">
                         </div>
                     </div>
-                    <script>
-                        (function() {
-                            var bar = document.getElementById('delayProgressBar');
-                            if (bar) bar.style.width = '<%= progressWidth %>%';
-                        })();
-                    </script>
                 </div>
                 <div class="col-md-4 text-center border-end" style="border-color: rgba(255, 255, 255, 0.08) !important;">
                     <span class="small fw-semibold text-uppercase" style="color: #94A3B8;">Probability Breakdown</span>
                     <div class="d-flex justify-content-center gap-3 mt-2">
                         <div>
                             <span class="badge" style="background: rgba(16, 185, 129, 0.15); color: #34D399; border: 1px solid rgba(16, 185, 129, 0.25);">Low</span>
-                            <div class="fw-bold text-white mt-1"><%= ((riskDist.low || 0) * 100).toFixed(1) %>%</div>
+                            <div class="fw-bold text-white mt-1"><%= lowDistPercent %></div>
                         </div>
                         <div>
                             <span class="badge" style="background: rgba(245, 158, 11, 0.15); color: #FBBF24; border: 1px solid rgba(245, 158, 11, 0.25);">Medium</span>
-                            <div class="fw-bold text-white mt-1"><%= ((riskDist.medium || 0) * 100).toFixed(1) %>%</div>
+                            <div class="fw-bold text-white mt-1"><%= medDistPercent %></div>
                         </div>
                         <div>
                             <span class="badge" style="background: rgba(239, 68, 68, 0.15); color: #F87171; border: 1px solid rgba(239, 68, 68, 0.25);">High</span>
-                            <div class="fw-bold text-white mt-1"><%= ((riskDist.high || 0) * 100).toFixed(1) %>%</div>
+                            <div class="fw-bold text-white mt-1"><%= highDistPercent %></div>
                         </div>
                     </div>
                 </div>
@@ -227,11 +229,11 @@ const progressWidth = Math.min(Math.max(Math.round(probVal * 100), 0), 100);
                         </tr>
                         <tr style="border-bottom: 1px solid rgba(255,255,255,0.06);">
                             <td class="py-2" style="color: #94A3B8;">Award Declared</td>
-                            <td class="fw-bold text-end py-2 text-white"><%= item.award_completed_percent || 0 %>%</td>
+                            <td class="fw-bold text-end py-2 text-white"><%= awardPercentStr %></td>
                         </tr>
                         <tr>
                             <td class="py-2" style="color: #94A3B8;">Physical Possession</td>
-                            <td class="fw-bold text-end py-2 text-white"><%= item.possession_completed_percent || 0 %>%</td>
+                            <td class="fw-bold text-end py-2 text-white"><%= possessionPercentStr %></td>
                         </tr>
                     </tbody>
                 </table>
@@ -255,15 +257,28 @@ const progressWidth = Math.min(Math.max(Math.round(probVal * 100), 0), 100);
 <!-- Chart.js for SHAP -->
 <% if (shapData.length > 0) { %>
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<script id="shap-data" type="application/json">
+<%- JSON.stringify(shapData) %>
+</script>
 <script>
 (function() {
-    const shap = <%- JSON.stringify(shapData) %>;
+    const dataEl = document.getElementById('shap-data');
+    if (!dataEl) return;
+    let shap = [];
+    try {
+        shap = JSON.parse(dataEl.textContent || '[]');
+    } catch (e) {
+        shap = [];
+    }
+    const canvas = document.getElementById('shapChart');
+    if (!canvas || !shap.length) return;
+
     const labels  = shap.map(s => s.feature);
     const values  = shap.map(s => s.shap_value);
     const colors  = shap.map(s => s.shap_value > 0 ? '#dc3545' : '#198754');
     const borders = shap.map(s => s.shap_value > 0 ? '#b02a37' : '#146c43');
 
-    new Chart(document.getElementById('shapChart'), {
+    new Chart(canvas, {
         type: 'bar',
         data: {
             labels: labels,
@@ -309,3 +324,13 @@ const progressWidth = Math.min(Math.max(Math.round(probVal * 100), 0), 100);
 })();
 </script>
 <% } %>
+
+<script>
+(function() {
+    var bar = document.getElementById('delayProgressBar');
+    if (bar) {
+        var w = bar.getAttribute('data-width') || '0';
+        bar.style.width = w + '%';
+    }
+})();
+</script>
