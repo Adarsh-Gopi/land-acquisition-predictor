@@ -70,6 +70,8 @@ python models/src_code/experimental_evaluation.py
 
 ## 🏗️ Slide 4: System Architecture Diagram
 
+![BhoomiAI Architecture Pipeline](public/images/pipeline_architecture.png)
+
 ```
 +-------------------------------------------------------------+
 |               CALA Officers / NHAI Admins                   |
